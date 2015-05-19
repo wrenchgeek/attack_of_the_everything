@@ -1,0 +1,7 @@
+development:
+  adapter: postgresql
+  database: attack_of_the_everything_development
+
+test:
+  adapter: postgresql
+  database: attack_of_the_everything_test
