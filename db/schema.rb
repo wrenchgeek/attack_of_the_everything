@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519211416) do
+ActiveRecord::Schema.define(version: 20150519224014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(version: 20150519211416) do
     t.boolean  "weapon?"
     t.boolean  "in_backpack?"
     t.integer  "room_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "attack_damage"
   end
 
   create_table "keys", force: :cascade do |t|
@@ -49,7 +50,6 @@ ActiveRecord::Schema.define(version: 20150519211416) do
 
   create_table "players", force: :cascade do |t|
     t.integer "room_id"
-    t.integer "inventory_id"
     t.integer "hp"
   end
 
