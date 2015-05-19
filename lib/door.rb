@@ -1,3 +1,3 @@
-class Door<ActiveRecord::Base
+class Door <ActiveRecord::Base
   has_one :key
 end
