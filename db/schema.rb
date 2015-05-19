@@ -11,10 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519185050) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
 
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
@@ -41,6 +37,19 @@ ActiveRecord::Schema.define(version: 20150519185050) do
     t.datetime "updated_at",   null: false
     t.boolean  "in_backpack?"
     t.boolean  "used?"
+  end
+
+  create_table "monsters", force: :cascade do |t|
+    t.string  "description"
+    t.integer "hp"
+    t.integer "ap"
+    t.boolean "killed_by_player"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string  "name"
+    t.integer "room_id"
+    t.integer "inventory_id"
   end
 
   create_table "rooms", force: :cascade do |t|
