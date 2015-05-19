@@ -1,13 +1,13 @@
 class Player < ActiveRecord::Base
-  has_many(:items)
+	belongs_to(:room)
 
 
   private
 
-  attr_reader(:hp)
-  def initialize(attributes)
-    @hp = 100
-  end
+  # attr_reader(:hp)
+  # def initialize(:attributes)
+  #   @hp = 100
+  # end
 
   def attack(monster)
   end
@@ -41,6 +41,7 @@ class Player < ActiveRecord::Base
         current_room.x_coordinate -= 1
         current_room.id = player.room_id
       end
+		else
     end
   end
 end
