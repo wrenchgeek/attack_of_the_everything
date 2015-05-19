@@ -1,4 +1,15 @@
 class Player < ActiveRecord::Base
+<<<<<<< HEAD
+
+  private
+
+  def attack(monster, item)
+    current_room = Room.find(self.room_id)
+    monster_encountered = Monster.find(current_room.monster_id)
+    @item = item.id
+    @monster = monster.id
+  end
+=======
 	belongs_to(:room)
 
 
@@ -8,11 +19,18 @@ class Player < ActiveRecord::Base
   # def initialize(:attributes)
   #   @hp = 100
   # end
-
-  def attack(monster)
-  end
+>>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
 
   def take(item)
+    if item.room_id == player.room_id
+      inventory.push(item)
+      item.room_id = nil
+    end
+  end
+
+  def use(item)
+    if item.in_backpack? (true)
+    end
   end
 
   def unlock
