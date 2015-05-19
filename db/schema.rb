@@ -11,22 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-  create_table "players", force: :cascade do |t|
-    t.string  "name"
-    t.integer "room_id"
+ActiveRecord::Schema.define(version: 20150519185418) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
 
-  create_table "rooms", force: :cascade do |t|
-    t.integer "x_coordinate"
-    t.integer "y_coordinate"
-    t.boolean "north"
-    t.boolean "south"
-    t.boolean "east"
-    t.boolean "west"
-    
   create_table "doors_keys", force: :cascade do |t|
     t.integer "key_id"
     t.integer "door_id"
@@ -70,4 +63,20 @@
     t.integer "monster_id"
     t.integer "room_id"
   end
+
+  create_table "players", force: :cascade do |t|
+    t.string  "name"
+    t.integer "room_id"
+    t.integer "inventory_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "x_coordinate"
+    t.integer "y_coordinate"
+    t.boolean "north"
+    t.boolean "south"
+    t.boolean "east"
+    t.boolean "west"
+  end
+
 end

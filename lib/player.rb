@@ -4,11 +4,9 @@ class Player < ActiveRecord::Base
 
   private
 
-  attr_reader(:name, :hp, :inventory)
+  attr_reader(:hp)
   def initialize(attributes)
-    @name = attributes[:name]
     @hp = 100
-    @inventory = attributes[:inventory]
   end
 
   def attack(monster)
