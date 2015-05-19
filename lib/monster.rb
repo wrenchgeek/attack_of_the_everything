@@ -22,9 +22,9 @@ class Monster < ActiveRecord::Base
     if :hp <= 0
       self.update({:killed_by_player == true})
       dropped_item = Item.find(rand 10)
-      dropped_item.update(:room_id => self.room_id())
+      dropped_item.update(:room_id => self.room_id().to_i())
     end
-    puts ''
+    puts dropped_item
   end
 
 
