@@ -13,6 +13,7 @@ class Monster < ActiveRecord::Base
       player_hp = 0.+(player.hp)
       player_hp -= @ap
       puts 'Player screams, "AAawwgghghghh!!11!1!"'
+    end
   end
 
 
@@ -20,7 +21,7 @@ class Monster < ActiveRecord::Base
 
   def dies
     if :hp <= 0
-      self.update({:killed_by_player == true})
+      self.update({:killed_by_player => true})
       dropped_item = Item.find(rand 10)
       dropped_item.update(:room_id => self.room_id())
     end

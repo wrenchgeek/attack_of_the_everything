@@ -1,5 +1,4 @@
 class Player < ActiveRecord::Base
-<<<<<<< HEAD
 
   private
 
@@ -9,17 +8,7 @@ class Player < ActiveRecord::Base
     @item = item.id
     @monster = monster.id
   end
-=======
-	belongs_to(:room)
-
-
-  private
-
-  # attr_reader(:hp)
-  # def initialize(:attributes)
-  #   @hp = 100
-  # end
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
+  belongs_to(:room)
 
   def take(item)
     if item.room_id == player.room_id
