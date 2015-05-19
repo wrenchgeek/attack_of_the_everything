@@ -1,10 +1,9 @@
 class Player < ActiveRecord::Base
   belongs_to(:room)
 
-  private
   def attack(monster, item)
     room_id = self.room_id
-    monster_encountered = Monster.find(monster.room_id)
+    monster_encountered = Monster.where(room_id: room_id).first
     damage_given = item.attack_damage
     monster_encountered.hp -= damage_given
   end
