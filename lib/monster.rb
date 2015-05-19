@@ -7,12 +7,11 @@ class Monster < ActiveRecord::Base
     where({:killed_by_player => false})
   end)
 
-  private
-
   def attack(player)
     if self.room_id == player.room_id
-      player_hp = 0.+(player.hp)
-      player_hp -= @ap
+      player_hp = player.hp()
+      player_hp -= self.ap()
+      player.update({:hp => player_hp})
       puts 'Player screams, "AAawwgghghghh!!11!1!"'
     end
   end
