@@ -11,20 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150519185418) do
-=======
-ActiveRecord::Schema.define(version: 20150519185050) do
-=======
-ActiveRecord::Schema.define(version: 20150519175223) do
-=======
-ActiveRecord::Schema.define(version: 20150519180011) do
+
 
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
+
+  create_table "inventory", force: :cascade do |t|
+    t.integer "item_id"
+
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "x_coordinate"
+    t.integer "y_coordinate"
+    t.boolean "north"
+    t.boolean "south"
+    t.boolean "east"
+    t.boolean "west"
 
   create_table "doors_keys", force: :cascade do |t|
     t.integer "key_id"
