@@ -1,25 +1,14 @@
 class Player < ActiveRecord::Base
-<<<<<<< HEAD
+  belongs_to(:room)
 
   private
-
   def attack(monster, item)
-    current_room = Room.find(self.room_id)
-    monster_encountered = Monster.find(current_room.monster_id)
-    @item = item.id
-    @monster = monster.id
+    room_id = self.room_id
+    monster_encountered = Monster.find(monster.room_id)
+    damage_given = item.attack_damage
+    monster_encountered.hp -= damage_given
   end
-=======
-	belongs_to(:room)
 
-
-  private
-
-  # attr_reader(:hp)
-  # def initialize(:attributes)
-  #   @hp = 100
-  # end
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
 
   def take(item)
     if item.room_id == player.room_id
@@ -30,6 +19,8 @@ class Player < ActiveRecord::Base
 
   def use(item)
     if item.in_backpack? (true)
+      if item.usable? (true)
+      end
     end
   end
 
@@ -59,7 +50,6 @@ class Player < ActiveRecord::Base
         current_room.x_coordinate -= 1
         current_room.id = player.room_id
       end
-		else
     end
   end
 end
