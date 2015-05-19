@@ -1,28 +1,30 @@
 class Monster < ActiveRecord::Base
   belongs_to(:room)
-<<<<<<< HEAD
-  #
-  # scope(:alive, -> do
-  #   where({:killed_by_player => false}))
-=======
+  has_many(:item)
 
   scope(:alive, -> do
     where({:killed_by_player => false})
   end)
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
 
   private
 
-  attr_reader(:hp, :ap)
-
-  def initialize(attributes)
-    @hp = attributes[:hp]
-    @ap = attributes[:ap]
-    @killed_by_player = attributes[:killed_by_player]
+  def attack(player)
+    if self.room_id == player.room_id
+      player_hp = 0.+(player.hp)
+      player_hp -= @ap
+      puts 'Player screams, "AAawwgghghghh!!11!1!"'
   end
 
-  def attack(player)
-    player.hp -= @ap
+
+  private
+
+  def dies
+    if :hp <= 0
+      self.update({:killed_by_player == true})
+      dropped_item = Item.find(rand 10)
+      dropped_item.update(:room_id => self.room_id())
+    end
+    puts ''
   end
 
 
