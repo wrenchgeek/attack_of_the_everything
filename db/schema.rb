@@ -11,26 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150519211416) do
-=======
-ActiveRecord::Schema.define(version: 20150519211206) do
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
 
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
 
-<<<<<<< HEAD
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
   end
 
-=======
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
   create_table "items", force: :cascade do |t|
     t.string   "name"
     t.boolean  "usable?"
@@ -50,8 +40,6 @@ ActiveRecord::Schema.define(version: 20150519211206) do
     t.boolean  "used?"
   end
 
-<<<<<<< HEAD
-=======
   create_table "monsters", force: :cascade do |t|
     t.string  "description"
     t.integer "hp"
@@ -59,7 +47,6 @@ ActiveRecord::Schema.define(version: 20150519211206) do
     t.boolean "killed_by_player"
   end
 
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
   create_table "players", force: :cascade do |t|
     t.integer "room_id"
     t.integer "inventory_id"
