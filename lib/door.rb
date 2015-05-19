@@ -1,3 +1,3 @@
-class Door <_ActiveRecord::Base
-  belongs_to: key
+class Door < ActiveRecord::Base
+  belongs_to :key
 end
