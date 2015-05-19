@@ -1,5 +1,6 @@
 class Player < ActiveRecord::Base
-
+  belongs_to(:room)
+  
   private
 
   def attack(monster, item)
@@ -8,7 +9,6 @@ class Player < ActiveRecord::Base
     @item = item.id
     @monster = monster.id
   end
-  belongs_to(:room)
 
   def take(item)
     if item.room_id == player.room_id
