@@ -1,6 +1,6 @@
-You wake up in a dimly lit basement. There's a computer on a table next to you, turned off. Next to the computer is a <%= @item.name %>
+You wake up in a dimly lit basement. There's a computer on a table next to you, turned off. Next to the computer is a <%= @@item.name %>. In the corner is a <%= @@monster.description %>.
 
-<form action="/" method="post">
+<form action="/<%= @room.id %>" method="post">
 
     <input id="action" name="action" type="text">
 </form>

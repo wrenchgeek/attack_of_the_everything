@@ -1,0 +1,14 @@
+require('spec_helper')
+
+describe(Monster) do
+    it { should belong_to(:room) }
+
+    describe('#attack') do
+      it("subtracts monster's attack power from player's hp") do
+        test_player = Player.create({:hp => 12, :name => "Max the Merciless", :room_id => 2, :inventory_id => 7})
+        test_monster = Monster.create({:hp => 9837459, :description => "Attack Bunny", :ap => 3, :killed_by_player => FALSE, :room_id => 2})
+        test_monster.attack(test_player)
+        expect(test_player.hp()).to(eq(9))
+      end
+    end
+end

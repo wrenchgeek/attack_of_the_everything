@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150519211416) do
     t.integer "hp"
     t.integer "ap"
     t.boolean "killed_by_player"
+    t.integer "room_id"
   end
 
   create_table "players", force: :cascade do |t|
