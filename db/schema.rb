@@ -11,14 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519205636) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
 
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
+
 
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
@@ -52,9 +49,9 @@ ActiveRecord::Schema.define(version: 20150519205636) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.string  "name"
     t.integer "room_id"
     t.integer "inventory_id"
+    t.integer "hp"
   end
 
   create_table "rooms", force: :cascade do |t|
