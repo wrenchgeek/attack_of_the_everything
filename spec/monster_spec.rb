@@ -20,6 +20,7 @@ describe(Monster) do
         test_player.attack(test_monster, test_item)
         expect(test_monster.killed_by_player?().to(eq(true)))
         expect(Item.all()).to(eq([test_item, dropped_item]))
+        expect(test_monster.description()).to(eq("Attack Bunny corpse"))
       end
     end
 end
