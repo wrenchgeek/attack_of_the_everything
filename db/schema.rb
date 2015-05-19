@@ -12,6 +12,10 @@
 # It's strongly recommended that you check this file into your version control system.
 
 
+
+  create_table "inventory", force: :cascade do |t|
+    t.integer "item_id"
+
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
 
@@ -64,6 +68,23 @@
   create_table "monsters_rooms", force: :cascade do |t|
     t.integer "monster_id"
     t.integer "room_id"
+
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string  "name"
+    t.integer "room_id"
+    t.integer "inventory_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "x_coordinate"
+    t.integer "y_coordinate"
+    t.boolean "north"
+    t.boolean "south"
+    t.boolean "east"
+    t.boolean "west"
+
   end
 
 end
