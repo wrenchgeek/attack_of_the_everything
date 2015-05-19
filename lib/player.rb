@@ -1,25 +1,5 @@
 class Player < ActiveRecord::Base
-<<<<<<< HEAD
-
-  private
-
-  def attack(monster, item)
-    current_room = Room.find(self.room_id)
-    monster_encountered = Monster.find(current_room.monster_id)
-    @item = item.id
-    @monster = monster.id
-  end
-=======
-	belongs_to(:room)
-
-
-  private
-
-  # attr_reader(:hp)
-  # def initialize(:attributes)
-  #   @hp = 100
-  # end
->>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
+  has_one(:room)
 
   def take(item)
     if item.room_id == player.room_id
