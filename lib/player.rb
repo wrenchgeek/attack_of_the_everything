@@ -1,4 +1,5 @@
 class Player < ActiveRecord::Base
+<<<<<<< HEAD
 
   private
 
@@ -8,6 +9,17 @@ class Player < ActiveRecord::Base
     @item = item.id
     @monster = monster.id
   end
+=======
+	belongs_to(:room)
+
+
+  private
+
+  # attr_reader(:hp)
+  # def initialize(:attributes)
+  #   @hp = 100
+  # end
+>>>>>>> 6141f210d50581805ebbbf32fa70077c957f2769
 
   def take(item)
     if item.room_id == player.room_id
@@ -47,6 +59,7 @@ class Player < ActiveRecord::Base
         current_room.x_coordinate -= 1
         current_room.id = player.room_id
       end
+		else
     end
   end
 end
