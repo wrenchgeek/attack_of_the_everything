@@ -12,12 +12,38 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20150519185050) do
+=======
+ActiveRecord::Schema.define(version: 20150519175223) do
+=======
+ActiveRecord::Schema.define(version: 20150519180011) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
+=======
+  create_table "doors", force: :cascade do |t|
+    t.boolean "unlocked"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "x_coordinate"
+    t.integer "y_coordinate"
+    t.boolean "north"
+    t.boolean "south"
+    t.boolean "east"
+    t.boolean "west"
+=======
+  create_table "doors_keys", force: :cascade do |t|
+    t.integer "key_id"
+    t.integer "door_id"
+  end
+
+  create_table "doors_rooms", force: :cascade do |t|
+    t.integer "door_id"
+    t.integer "room_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -37,6 +63,16 @@ ActiveRecord::Schema.define(version: 20150519185050) do
     t.datetime "updated_at",   null: false
     t.boolean  "in_backpack?"
     t.boolean  "used?"
+  end
+
+  create_table "keys_rooms", force: :cascade do |t|
+    t.integer "key_id"
+    t.integer "room_id"
+  end
+
+  create_table "monsters_rooms", force: :cascade do |t|
+    t.integer "monster_id"
+    t.integer "room_id"
   end
 
 end
