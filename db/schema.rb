@@ -11,19 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519185050) do
-=======
-ActiveRecord::Schema.define(version: 20150519175223) do
-=======
-ActiveRecord::Schema.define(version: 20150519180011) do
-
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
 
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
-=======
+
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
@@ -35,7 +26,7 @@ ActiveRecord::Schema.define(version: 20150519180011) do
     t.boolean "south"
     t.boolean "east"
     t.boolean "west"
-=======
+
   create_table "doors_keys", force: :cascade do |t|
     t.integer "key_id"
     t.integer "door_id"
