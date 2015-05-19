@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20150519224014) do
 
   create_table "players", force: :cascade do |t|
     t.integer "room_id"
-    t.integer "inventory_id"
     t.integer "hp"
   end
 
