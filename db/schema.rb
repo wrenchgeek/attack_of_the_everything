@@ -11,10 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519171201) do
+ActiveRecord::Schema.define(version: 20150519175223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "doors", force: :cascade do |t|
+    t.boolean "unlocked"
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.integer "x_coordinate"
