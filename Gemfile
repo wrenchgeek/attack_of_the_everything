@@ -6,7 +6,6 @@ gem("rake")
 gem("pg")
 gem("shoulda-matchers")
 gem("launchy")
-gem("pry")
 gem('capybara')
 
 group(:production) do
