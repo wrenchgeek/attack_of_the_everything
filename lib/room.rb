@@ -1,4 +1,4 @@
-class Room <_ActiveRecord::Base
-  has_many: items
-  has_many: monsters
+class Room<ActiveRecord::Base
+  has_many :items
+  has_many :monsters
 end
