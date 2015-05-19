@@ -2,8 +2,9 @@ class Monster < ActiveRecord::Base
   belongs_to(:room)
 
   scope(:alive, -> do
-    where({:killed_by_player => false}))
-  end
+    where({:killed_by_player => false})
+  end)
+
   private
 
   attr_reader(:hp, :ap)
