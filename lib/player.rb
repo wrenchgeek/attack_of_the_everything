@@ -9,6 +9,7 @@ class Player < ActiveRecord::Base
     monster_encountered.hp -= damage_given
   end
 
+
   def take(item)
     if item.room_id == player.room_id
       inventory.push(item)

@@ -2,6 +2,7 @@ class Monster < ActiveRecord::Base
   belongs_to(:room)
   has_many(:item)
 
+
   scope(:alive, -> do
     where({:killed_by_player => false})
   end)
