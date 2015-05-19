@@ -11,6 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
+  create_table "inventory", force: :cascade do |t|
+    t.integer "item_id"
+
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
@@ -41,11 +45,6 @@
     t.integer  "room_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-  end
-
-  create_table "items_rooms", force: :cascade do |t|
-    t.integer "item_id"
-    t.integer "room_id"
   end
 
   create_table "keys", force: :cascade do |t|
