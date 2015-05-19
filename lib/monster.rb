@@ -4,18 +4,19 @@ class Monster < ActiveRecord::Base
   scope(:alive, -> do
     where({:killed_by_player => false}))
 
-  # scope(:aggro, -> do
-  #   where({:sees_player => true})
-  # end)
-# hmmmmm
-
 
   private
 
-  def attack(player)
-    player.hp -= 1
-  end
-#
+  attr_reader(:hp, :ap)
 
+  def initialize(attributes)
+    @hp = attributes[:hp]
+    @ap = attributes[:ap]
+    @killed_by_player = attributes[:killed_by_player]
+  end
+
+  def attack(player)
+    player.hp -= @ap
+  end
 
 end
