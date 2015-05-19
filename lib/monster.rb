@@ -1,8 +1,8 @@
 class Monster < ActiveRecord::Base
   belongs_to(:room)
-
-  scope(:alive, -> do
-    where({:killed_by_player => false}))
+  #
+  # scope(:alive, -> do
+  #   where({:killed_by_player => false}))
 
   # scope(:aggro, -> do
   #   where({:sees_player => true})

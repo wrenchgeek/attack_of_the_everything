@@ -1,18 +1,24 @@
 class Player < ActiveRecord::Base
-  has_many(:items)
-
 
   private
 
-  attr_reader(:hp)
-  def initialize(attributes)
-    @hp = 100
-  end
-
-  def attack(monster)
+  def attack(monster, item)
+    current_room = Room.find(self.room_id)
+    monster_encountered = Monster.find(current_room.monster_id)
+    @item = item.id
+    @monster = monster.id
   end
 
   def take(item)
+    if item.room_id == player.room_id
+      inventory.push(item)
+      item.room_id = nil
+    end
+  end
+
+  def use(item)
+    if item.in_backpack? (true)
+    end
   end
 
   def unlock
