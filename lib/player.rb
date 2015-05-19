@@ -4,13 +4,11 @@ class Player < ActiveRecord::Base
   private
 
   def attack(monster, item)
-    current_room = Room.find(self.room_id)
-    monster_encountered = Monster.find(current_room.monster_id)
-    @item = item.id
-    @monster = monster.id
+    room_id = self.room_id
+    monster_encountered = Monster.find(monster.room_id)
+    damage_given = item.attack_damage
+    monster_encountered.hp -= damage_given
   end
-
-  private
 
   def take(item)
     if item.room_id == player.room_id
@@ -21,6 +19,8 @@ class Player < ActiveRecord::Base
 
   def use(item)
     if item.in_backpack? (true)
+      if item.usable? (true)
+      end
     end
   end
 
