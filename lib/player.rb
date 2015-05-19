@@ -1,5 +1,6 @@
 class Player < ActiveRecord::Base
-  has_many(:items)
+  has_one(:inventory)
+	has_one(:room)
 
 
   private

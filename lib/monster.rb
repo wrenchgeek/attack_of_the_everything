@@ -1,27 +1,9 @@
 class Monster < ActiveRecord::Base
   belongs_to(:room)
 
-<<<<<<< HEAD
-#   scope(:alive, -> do
-#     where({:killed_by_player => false}))
-#   # scope(:aggro, -> do
-#   #   where({:sees_player => true})
-#   # end)
-# # hmmmmm
-#
-#
-#   private
-#
-#   def attack(player)
-#     player.hp -= 1
-#   end
-# #
-# end
-=======
   scope(:alive, -> do
     where({:killed_by_player => false}))
-
-
+  end
   private
 
   attr_reader(:hp, :ap)
@@ -35,6 +17,6 @@ class Monster < ActiveRecord::Base
   def attack(player)
     player.hp -= @ap
   end
->>>>>>> a850491e6b926f9a08e28b8f4984840383c3a5ec
+
 
 end
