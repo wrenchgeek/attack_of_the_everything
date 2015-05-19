@@ -11,17 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150519191024) do
+=======
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+>>>>>>> 2eeb19f01c4f15f29b2a7dfb054292947b881ba1
 
+  create_table "inventory", force: :cascade do |t|
+    t.integer "item_id"
+
+<<<<<<< HEAD
+=======
+  create_table "inventory", force: :cascade do |t|
+    t.integer "item_id"
+
+>>>>>>> 2eeb19f01c4f15f29b2a7dfb054292947b881ba1
   create_table "doors", force: :cascade do |t|
     t.boolean "unlocked"
   end
 
+<<<<<<< HEAD
   create_table "inventory", force: :cascade do |t|
     t.integer "item_id"
+=======
+  create_table "rooms", force: :cascade do |t|
+    t.integer "x_coordinate"
+    t.integer "y_coordinate"
+    t.boolean "north"
+    t.boolean "south"
+    t.boolean "east"
+    t.boolean "west"
+
+  create_table "doors_keys", force: :cascade do |t|
+    t.integer "key_id"
+    t.integer "door_id"
+  end
+
+  create_table "doors_rooms", force: :cascade do |t|
+    t.integer "door_id"
+    t.integer "room_id"
+>>>>>>> 2eeb19f01c4f15f29b2a7dfb054292947b881ba1
   end
 
   create_table "items", force: :cascade do |t|
@@ -47,6 +76,21 @@ ActiveRecord::Schema.define(version: 20150519191024) do
     t.string "description"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "monsters_rooms", force: :cascade do |t|
+    t.integer "monster_id"
+    t.integer "room_id"
+
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string  "name"
+    t.integer "room_id"
+    t.integer "inventory_id"
+  end
+
+>>>>>>> 2eeb19f01c4f15f29b2a7dfb054292947b881ba1
   create_table "rooms", force: :cascade do |t|
     t.integer "x_coordinate"
     t.integer "y_coordinate"
@@ -54,6 +98,10 @@ ActiveRecord::Schema.define(version: 20150519191024) do
     t.boolean "south"
     t.boolean "east"
     t.boolean "west"
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2eeb19f01c4f15f29b2a7dfb054292947b881ba1
   end
 
 end
