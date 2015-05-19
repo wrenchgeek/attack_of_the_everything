@@ -5,7 +5,7 @@ describe(Player) do
 
 	describe '#attack' do
 		test_item = Item.create(name: "nail", weapon?: true, attack_damage: 2)
-		test_monster = Monster.create(description: "bird")
+		test_monster = Monster.create(description: "bird", hp: 5)
 		test_player = Player.create()
 		# complete spec
 
