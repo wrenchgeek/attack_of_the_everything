@@ -1,7 +1,7 @@
 require('./lib/item.rb')
 require('./lib/monster.rb')
 
-#don't forget to run <code> run $ rake db:seed </code>
+#don't forget to run <code> $ rake db:seed </code>
 
 # DROPPED LOOT. ADD MORE LATER. these are test items_ids (1..5)
 Item.create(:name => "Epicodus T-Shirt, Size: XL", :usable? => false, :weapon? => false, :attack_damage => 0, :in_backpack? => false, :room_id => nil)

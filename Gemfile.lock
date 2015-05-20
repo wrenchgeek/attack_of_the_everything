@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/itzki/activerecord-seed.git
+  revision: d333a82de09624781e658c352c9a33e07cf9e3c2
+  specs:
+    activerecord-seed (0.0.1)
+      activerecord (>= 3.2)
+      activesupport
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -89,6 +97,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-seed!
   capybara
   launchy
   pg
