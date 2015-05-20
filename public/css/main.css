@@ -1,0 +1,12 @@
+@font-face {
+font-family: 'Fixedsys500c';
+src: url("/Fixedsys500c.otf") format("truetype");
+}
+
+html, body {
+  font-family: 'Fixedsys500c', sans-serif;
+}
+
+input {
+  font-family: 'Fixedsys500c', sans-serif;
+}

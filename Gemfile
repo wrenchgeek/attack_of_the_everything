@@ -6,6 +6,8 @@ gem("rake")
 gem("pg")
 gem("launchy")
 gem('capybara')
+gem("pry")
+
 
 group(:production) do
  gem("sinatra")
@@ -14,5 +16,4 @@ end
 group(:test) do
 gem("shoulda-matchers")
  gem("rspec")
- gem("pry")
 end

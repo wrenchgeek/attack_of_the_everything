@@ -17,13 +17,15 @@ class Monster < ActiveRecord::Base
     end
   end
 
+
+
+  # took out private
+
   def dies
-      self.update({:killed_by_player => true})
-      dropped_item = Item.find(rand 10)
-      dropped_item.update(:room_id => self.room_id())
-      new_monster_description = monster.description.concat(" corpse")
-      self.update({:description => new_monster_description})
-    puts ''
+    self.update({:killed_by_player => true})
+    dropped_item = Item.find(rand(1+4).to_i())
+    dropped_item.update(:room_id => self.room_id())
+    puts 'Monster dies a horrific death... however...'
   end
 
 
