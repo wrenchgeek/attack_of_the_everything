@@ -5,6 +5,8 @@ require('./lib/room.rb')
 Player.create(room_id: nil, hp: 100)
 #don't forget to run <code> run $ rake db:seed </code>
 
+<<<<<<< HEAD
+=======
 #keep in mind: will be at least 10 levels if we each come up with at least 2-3
 
 # items dropped from monsters (need one per monster)
@@ -33,6 +35,7 @@ Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modi
 Item.create(:name => "Capri Sun, 8oz 'Pacific Cooler'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 20)
 
 # rooms
+>>>>>>> 7e0b9eb744f3c1070be1702e3db490be01173e76
 Room.create({:x_coordinate => 1, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in your buddy Steve's office. It's a horrible mess"})
 Room.create({:x_coordinate => 2, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in your boss's office. It is covered in Japanese paraphernalia, despite him having no heritage from the region."})
 Room.create({:x_coordinate => 3, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => TRUE, :west => FALSE, :description => "You are in the foyer to your boss's receptionist's personal assistant's office.  You suddenly remember how ridiculous your former life was."})

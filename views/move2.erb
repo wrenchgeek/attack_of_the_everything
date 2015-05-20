@@ -1,5 +1,3 @@
-<!-- <%= puts @@entries.split(" ") %> -->
-
 <% if @input.include?("attack") %>
 	<% if @monster.killed_by_player? == false %>
 	You <%= @input_string %>. Its HP is now <%= @monster.hp %>
