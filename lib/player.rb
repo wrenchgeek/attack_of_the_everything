@@ -2,10 +2,12 @@ class Player < ActiveRecord::Base
   belongs_to(:room)
 
   def attack(monster, item)
-    room_id = self.room_id
-    monster = Monster.where(room_id: room_id).first
-    damage_given = item.attack_damage
-    monster.update(hp: (monster.hp -= damage_given))
+    monster_encountered = Monster.where(description: monster, room_id: self.room_id).first
+    # monster = Monster.where(room_id: self.room_id).first
+    if item.in_backpack? == true
+      new_monster_hp = monster.hp - item.attack_damage
+      monster.update(hp: new_monster_hp)
+    end
   end
 
   def take(item)
@@ -15,39 +17,37 @@ class Player < ActiveRecord::Base
     end
   end
 
+
+# Needs hp_modifier column in items table
   def use(item)
-    if item.in_backpack? (true)
-      if item.usable? (true)
-      end
+    if item.in_backpack? == true
+      new_player_hp = self.hp + item.hp_modifier
+      self.update(hp: new_player_hp)
     end
   end
 
-  def unlock
-  end
 
-  # movement
+
+  # Implement keys/doors later
+
+  # def unlock
+  # end
+
+
   def move(direction)
-    current_room = Room.find(player.room_id)
-    if direction == "north"
-      if current_room.north == true
-        current_room.y_coordinate += 1
-        current_room.id = player.room_id
-      end
-    elsif direction == "south"
-      if current_room.south == true
-        current_room.y_coordinate -= 1
-        current_room.id = player.room_id
-      end
-    elsif direction == "east"
-      if current_room.east == true
-        current_room.x_coordinate += 1
-        current_room.id = player.room_id
-      end
-    elsif direction == "west"
-      if current_room.west == true
-        current_room.x_coordinate -= 1
-        current_room.id = player.room_id
-      end
+    current_room = Room.find(self.room_id.to_i)
+    if direction == "north" && current_room.north == true
+      current_room = Room.where(y_coordinate: (current_room.y_coordinate + 1)).first
+      self.update(room_id: current_room.id)
+    elsif direction == "south" && current_room.south == true
+      current_room = Room.where(y_coordinate: (current_room.y_coordinate - 1)).first
+      self.update(room_id: current_room.id)
+    elsif direction == "east" && current_room.east == true
+      current_room = Room.where(x_coordinate: (current_room.x_coordinate + 1)).first
+      self.update(room_id: current_room.id)
+    elsif direction == "west" && current_room.west == true
+      current_room = Room.where(x_coordinate: (current_room.x_coordinate - 1)).first
+      self.update(room_id: current_room.id)
     end
   end
 end
