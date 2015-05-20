@@ -21,7 +21,7 @@ Item.create(:name => "Chainsaw", :attack_damage => 20, :hp_modifier => 0, :in_ba
 Item.create(:name => "Apple", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "Baseball Bat", :attack_damage => 15, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Arby's Original Roast Beef Sandwich", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Arby's Original Roast Beef Sandwich (rotten)", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "Whiskey, double, on the rocks", :attack_damage => 2, :hp_modifier => 100, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "Fire Extinguisher", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 #most powerful weapon
