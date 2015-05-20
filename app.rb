@@ -12,7 +12,7 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 #this is all kind of a dumb way to do it i need to autogenerate monsters somewhere .
 get('/') do
-	@room = Room.find(2)
+	@room = Room.find(1)
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
