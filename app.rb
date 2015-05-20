@@ -29,7 +29,6 @@ post('/:room_id') do
 		monster_name = @input[1..(with_index-1)].join(" ")
 		@monster = Monster.where(description: monster_name, room_id: @@player.room_id).first
 		weapon = @input[(with_index + 1)..@input.length]
-		binding.pry
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: weapon.join(""), room_id: @@player.room_id).first)
 		weapon_index = @input[(with_index + 1)..@input.length]
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @@player.room_id).first)
@@ -55,14 +54,12 @@ end
 patch('/:room_id') do
 	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
 	@input_string = params.fetch("action").downcase
-	binding.pry
 	@input = @input_string.split(" ")
 	if @input.include?("with")
 		with_index = @input.index("with")
 		monster_name = @input[1..(with_index-1)].join(" ")
 		@monster = Monster.where(description: monster_name, room_id: @@player.room_id).first
 		weapon = @input[(with_index + 1)..@input.length]
-		binding.pry
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: weapon.join(""), room_id: @@player.room_id).first)
 		if @monster.hp <= 0
 			@monster.killed_by_player = true
