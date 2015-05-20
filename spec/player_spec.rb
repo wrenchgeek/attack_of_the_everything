@@ -5,7 +5,7 @@ describe(Player) do
 
 	describe '#take' do
 		it 'will allow player take an item if it is in the room' do
-			test_item = Item.create(name: "nail", weapon?: true, in_backpack?: false, attack_damage: 2, room_id: 2)
+			test_item = Item.create(name: "nail", in_backpack?: false, attack_damage: 2, room_id: 2)
 			test_player = Player.create(room_id: 2)
 			test_player.take(test_item)
 			expect(test_item.in_backpack?).to eq(true)
@@ -33,15 +33,13 @@ describe(Player) do
 		end
 	end
 
-	
-	# Needs hp_modifier column in items table
-
-	# describe '#use' do
-	# 	it 'will allow player to use an item in backpack'
-	# 	test_item = Item.create(name: "apple", hp_modifier: 4, in_backpack?: false, room_id: 2, attack_damage: 2)
-	# 	test_player = Player.create(room_id: 2, hp: 100)
-	# 	test_player.take(test_item)
-	# 	test_player.use(test_item)
-	# 	expect(test_player.hp).to eq(104)
-	# end
+	describe '#use' do
+		it 'will allow player to use an item in backpack' do
+			test_item = Item.create(name: "apple", hp_modifier: 4, in_backpack?: false, room_id: 2, attack_damage: 2)
+			test_player = Player.create(room_id: 2, hp: 100)
+			test_player.take(test_item)
+			test_player.use(test_item)
+			expect(test_player.hp).to eq(104)
+		end
+	end
 end
