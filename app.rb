@@ -28,7 +28,7 @@ post('/:room_id') do
 		with_index = @input.index("with")
 		monster_name = @input[1..(with_index-1)].join(" ")
 		@monster = Monster.where(description: monster_name, room_id: @@player.room_id).first
-		weapon_index = @input.[(with_index + 1)..@input.length]
+		weapon_index = @input[(with_index + 1)..@input.length]
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @@player.room_id).first)
 		if @monster.hp <= 0
 			@monster.killed_by_player = true
@@ -45,4 +45,5 @@ post('/:room_id') do
 		end
 	end
 erb(:move)
+erb(:move).save_output(@@entries)
 end
