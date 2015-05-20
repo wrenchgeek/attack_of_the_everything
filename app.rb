@@ -45,7 +45,7 @@ post('/:room_id') do
 		if Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
 		elsif @input.include?("move")
-			@player.move(@input[2])
+			@player.move(@input[1])
 		else
 		end
 	end
@@ -76,11 +76,17 @@ patch('/:room_id') do
 		if Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
 		elsif @input.include?("move")
-			@player.move(@input[2])
+			@player.move(@input[1])
+			redirect("/#{@player.room_id}")
 		else
 		end
 	end
 	@room = Room.find(@player.room_id)
 erb(:move)
 @@entries.push(erb(:move))
+end
+
+get('/:room_id')
+@player = Player.find(1)
+@room = Room.find(@player.room_id)
 end
