@@ -1,5 +1,7 @@
 require('./lib/item.rb')
 require('./lib/monster.rb')
+require('./lib/room.rb')
+
 
 #don't forget to run <code> run $ rake db:seed </code>
 
