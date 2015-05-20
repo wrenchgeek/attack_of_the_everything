@@ -21,6 +21,7 @@ class Monster < ActiveRecord::Base
     self.update({:killed_by_player => true, :description => self.description.concat(" corpse")})
     dropped_item = Item.find(1.+(rand(4)))
     dropped_item.update(:room_id => self.room_id())
+    puts "#{self.description} has #{dropped_item.name}."
   end
 
 

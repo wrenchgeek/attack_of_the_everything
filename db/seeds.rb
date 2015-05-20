@@ -2,9 +2,11 @@ require('./lib/item.rb')
 require('./lib/monster.rb')
 require('./lib/room.rb')
 
-
+Player.create(room_id: nil, hp: 100)
 #don't forget to run <code> run $ rake db:seed </code>
 
+<<<<<<< HEAD
+=======
 #keep in mind: will be at least 10 levels if we each come up with at least 2-3
 
 # items dropped from monsters (need one per monster)
@@ -18,20 +20,22 @@ Item.create(:name => "Miller High Life, 32oz", :attack_damage => 0, :hp_modifier
 Item.create(:name => "Katana", :attack_damage => 25, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "Stapler (brand new)", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "Chainsaw", :attack_damage => 20, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Apple", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Apple", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 4)
 Item.create(:name => "Baseball Bat", :attack_damage => 15, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Arby's Original Roast Beef Sandwich (rotten)", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Whiskey, double, on the rocks", :attack_damage => 2, :hp_modifier => 100, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 7)
+Item.create(:name => "Arby's Original Roast Beef Sandwich", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => 10)
+Item.create(:name => "Whiskey, double, on the rocks", :attack_damage => 2, :hp_modifier => 100, :in_backpack? => false, :room_id => 12)
 Item.create(:name => "Fire Extinguisher", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 #most powerful weapon
 Item.create(:name => "Vintage Nerf Gun, circa 1986", :attack_damage => 100, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 #####################
-Item.create(:name => "A Baby Seal", :attack_damage => 5, :hp_modifier => 1, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "8oz Cup of Coffee (Americano)'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
-
+Item.create(:name => "A Baby Seal", :attack_damage => 5, :hp_modifier => 1, :in_backpack? => false, :room_id => 14)
+Item.create(:name => "8oz Cup of Coffee (Americano)'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 17)
+Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 23)
+Item.create(:name => "Capri Sun, 8oz 'Pacific Cooler'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 20)
 
 # rooms
+>>>>>>> 7e0b9eb744f3c1070be1702e3db490be01173e76
 Room.create({:x_coordinate => 1, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in your buddy Steve's office. It's a horrible mess"})
 Room.create({:x_coordinate => 2, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in your boss's office. It is covered in Japanese paraphernalia, despite him having no heritage from the region."})
 Room.create({:x_coordinate => 3, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => TRUE, :west => FALSE, :description => "You are in the foyer to your boss's receptionist's personal assistant's office.  You suddenly remember how ridiculous your former life was."})
