@@ -1,10 +1,7 @@
-<% if @old_room.id != @@player.room_id %>
-<%= @room.description %>
-<% end %>
-
+<% old_text =
 <% if @input.include?(attack) %>
 	<% if @monster.killed_by_player? == false %>
-		You <%= @input_string %>. Its HP is now <%= @monster.hp %>
+	You <%= @input_string %>. Its HP is now <%= @monster.hp %>
 	<% else %>
 		The <%= @monster.description %> lays at your feet, dead as a doornail.
 	<% end %>
@@ -12,6 +9,10 @@
 	<%= @room.description %>
 <% else %>
 	You <%= @input_string %>
+<% end %>
+
+<% if @old_room.id != @@player.room_id %>
+<%= @room.description %>
 <% end %>
 
 <form action="/<%= @room.id %>" method="post">
