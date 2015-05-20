@@ -77,11 +77,9 @@ patch('/:room_id') do
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
 	elsif @input.include?("move")
 			@player.move(@input[1])
-			binding.pry
-			redirect("/:#{@player.room_id}")
-	else
+			# redirect("/#{@player.room_id}")
 	end
 	@room = Room.find(@player.room_id)
-	erb(:move)
-@@entries.push(erb(:move))
+	erb(:move2)
+# @@entries.push(erb(:move2))
 end
