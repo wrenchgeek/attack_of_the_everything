@@ -3,7 +3,6 @@ class Player < ActiveRecord::Base
 
   def attack(monster, item)
     monster_encountered = Monster.where(description: monster, room_id: self.room_id).first
-    # monster = Monster.where(room_id: self.room_id).first
     if item.in_backpack? == true
       new_monster_hp = monster.hp - item.attack_damage
       monster.update(hp: new_monster_hp)
@@ -17,8 +16,6 @@ class Player < ActiveRecord::Base
     end
   end
 
-
-# Needs hp_modifier column in items table
   def use(item)
     if item.in_backpack? == true
       new_player_hp = self.hp + item.hp_modifier
