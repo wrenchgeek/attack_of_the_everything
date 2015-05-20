@@ -18,6 +18,7 @@ erb(:index)
 end
 
 post('/:room_id') do
+	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
 	@input_string = params.fetch("action").downcase!
 	@input = @input_string.split(" ")
 	if @input.include?("with")
@@ -26,6 +27,10 @@ post('/:room_id') do
 		@monster = Monster.where(description: monster_name, room_id: @@player.room_id).first
 		weapon_index = with_index + 1
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @@player.room_id).first)
+		if @monster.hp <= 0
+			@monster.killed_by_player = true
+		else @monster.attack(@@player)
+		end
 	elsif @input.include?("look")
 		room = Room.find(@@player.room_id)
 		room.description
