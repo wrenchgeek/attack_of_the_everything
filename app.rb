@@ -3,7 +3,6 @@ Bundler.require(:default, :production)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 @@entries = []
-
 # @@room = Room.create(:x_coordinate => 1, :y_coordinate => 1)
 # @@monster = Monster.create(:description => "A horrible baby", :hp => 100, :ap => 20, :room_id => @@room.id)
 # @@item = Item.create(:name => "wrench", :usable? => true, :room_id => @@room.id, attack_damage: 40)
