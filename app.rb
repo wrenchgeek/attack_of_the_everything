@@ -16,6 +16,7 @@ get('/') do
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
+	@player.update(room_id: @room.id)
 	@@entries.push (@room.description)
 erb(:index)
 end
@@ -43,11 +44,12 @@ post('/:room_id') do
 	else
 		if Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
+		elsif @input.include?("move")
+			@player.move(@input[2])
 		else
-			@player.send(@input[0].to_sym, @input[1..@input.length].join(" "))
 		end
 	end
-	@room = Room.find(@player.room_id)
+	@room = Room.find(@player.room_id.to_i)
 erb(:move)
 @@entries.push(erb(:move))
 end
@@ -73,9 +75,9 @@ patch('/:room_id') do
 	else
 		if Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
+		elsif @input.include?("move")
+			@player.move(@input[2])
 		else
-			@player.send(@input[0].to_sym, @input[1..@input.length].join(" "))
-			binding.pry
 		end
 	end
 	@room = Room.find(@player.room_id)
