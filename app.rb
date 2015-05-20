@@ -28,9 +28,14 @@ post('/:room_id') do
 		with_index = @input.index("with")
 		monster_name = @input[1..(with_index-1)].join(" ")
 		@monster = Monster.where(description: monster_name, room_id: @@player.room_id).first
+<<<<<<< HEAD
 		weapon = @input[(with_index + 1)..@input.length]
 		binding.pry
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: weapon.join(""), room_id: @@player.room_id).first)
+=======
+		weapon_index = @input[(with_index + 1)..@input.length]
+		@@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @@player.room_id).first)
+>>>>>>> bd984215f31669b2a2f93fa8bdcda7fd961c7270
 		if @monster.hp <= 0
 			@monster.killed_by_player = true
 		else @monster.attack(@@player)
