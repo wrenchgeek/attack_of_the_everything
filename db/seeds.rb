@@ -4,11 +4,11 @@ require('./lib/monster.rb')
 #don't forget to run <code> run $ rake db:seed </code>
 
 # DROPPED LOOT. ADD MORE LATER. these are test items_ids (1..5)
-Item.create(:name => "Epicodus T-Shirt, Size: XL", :usable? => false, :attack_damage=>0, :in_backpack? => false, :room_id => nil)
-Item.create(:name =>"The Dude's Rug", :usable?=>false, :attack_damage=>0, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Flamethrower", :usable?=>true, attack_damage=>10, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Machete", :usable?=>true, attack_damage=>5, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Fork", :usable?=>true, attack_damage=>2, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name => "Epicodus T-Shirt, Size: XL", :attack_damage=>0, :in_backpack? => false, :room_id => nil)
+Item.create(:name =>"The Dude's Rug", :attack_damage=>0, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name =>"Flamethrower", :attack_damage=>10, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name =>"Machete", :attack_damage=>5, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name =>"Fork", :attack_damage=>2, :in_backpack?=>false, :room_id=>nil)
 
 # NEED MORE ITEMS item_ids (6..whatever) = standard items
 
