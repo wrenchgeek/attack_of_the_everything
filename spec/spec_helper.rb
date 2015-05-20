@@ -1,4 +1,4 @@
-ENV['RACK_ENV'] = 'test'
+ENV['RACK_ENV'] = 'test' #db:seed ## possible solution to test:prepare issue? needs testing
 
 require("bundler/setup")
 Bundler.require(:default, :test)
