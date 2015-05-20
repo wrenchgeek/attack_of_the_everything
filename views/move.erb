@@ -16,6 +16,10 @@
 <%= @room.description %>
 <% end %>
 
+<% if @input.include?("look") %>
+<%=	@room.description %>
+<% end %>
+
 <form action="/<%= @room.id %>" method="post">
 	<input type ="hidden" name="_method" value="patch">
 	<input type="hidden" name="hidden_id_room" value="<%= @room.id %>">

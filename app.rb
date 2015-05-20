@@ -21,6 +21,12 @@ get('/') do
 erb(:index)
 end
 
+get('/:room_id') do
+	@player = Player.find(1)
+	@room = @player.room_id
+erb(:move)
+end
+
 post('/:room_id') do
 	@player = Player.find(1)
 	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
@@ -41,16 +47,14 @@ post('/:room_id') do
 	elsif @input.include?("look")
 		@room = Room.find(@player.room_id)
 		puts @room.description
-	else
-		if Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
+	elsif Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
-		elsif @input.include?("move")
-			@player.move(@input[2])
+	elsif @input.include?("move")
+			@player.move(@input[1])
 		else
-		end
 	end
 	@room = Room.find(@player.room_id.to_i)
-erb(:move)
+	erb(:move)
 @@entries.push(erb(:move))
 end
 
@@ -69,18 +73,15 @@ patch('/:room_id') do
 			@monster.killed_by_player = true
 		else @monster.attack(@player)
 		end
-	elsif @input.include?("look")
-		room = Room.find(@player.room_id)
-		room.description
-	else
-		if Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
+	elsif Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
-		elsif @input.include?("move")
-			@player.move(@input[2])
-		else
-		end
+	elsif @input.include?("move")
+			@player.move(@input[1])
+			binding.pry
+			redirect("/:#{@player.room_id}")
+	else
 	end
 	@room = Room.find(@player.room_id)
-erb(:move)
+	erb(:move)
 @@entries.push(erb(:move))
 end
