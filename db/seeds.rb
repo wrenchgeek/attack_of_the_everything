@@ -6,25 +6,27 @@ require('./lib/monster.rb')
 #keep in mind: will be at least 10 levels if we each come up with at least 2-3
 
 # items dropped from monsters (need one per monster)
-Item.create(:name => "Epicodus T-Shirt, Size: XL", :attack_damage=>0, :hp_modifier=>1, :in_backpack? => false, :room_id => nil)
-Item.create(:name =>"Nunchucks", :attack_damage=>7, :hp_modifier=>0, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"11 Tins of SPAM", :attack_damage=>0, :hp_modifier=>20, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Machete", :attack_damage=>9, :hp_modifier=>0, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Miller High Life, 32oz", :attack_damage=>0, :hp_modifier=>50, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name => "Epicodus T-Shirt, Size: L", :attack_damage => 0, :hp_modifier => 1, :in_backpack? =>  false, :room_id =>  nil)
+Item.create(:name => "Actual Ninja Stars", :attack_damage => 20, :hp_modifier=> 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Canned Tuna, 4oz (3-pack)", :attack_damage => 0, :hp_modifier => 30, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Machete used from the 2010 film 'Machete', starring Danny Trejo", :attack_damage => 25, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Miller High Life, 32oz", :attack_damage => 0, :hp_modifier => 50, :in_backpack? => false, :room_id => nil)
 
 # standard items found in rooms
-Item.create(:name =>"Katana", :attack_damage=>2, :hp_modifier=>0, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Stapler (brand new)", :attack_damage=>2, :hp_modifier=>0, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Apple", :attack_damage=>2, :hp_modifier=>5, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"12oz Can of 'Mountain Dew'", :attack_damage=>2, :hp_modifier=>5, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Sandwich (rotten)", :attack_damage=>2, :hp_modifier=>3, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Whiskey, double, on the rocks", :attack_damage=>2, :hp_modifier=>100, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Fire Extinguisher", :attack_damage=>2, :hp_modifier=>0, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name => "Katana", :attack_damage => 25, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Stapler (brand new)", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Chainsaw", :attack_damage => 20, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Apple", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Baseball Bat", :attack_damage => 15, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Arby's Original Roast Beef Sandwich (rotten)", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Whiskey, double, on the rocks", :attack_damage => 2, :hp_modifier => 100, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Fire Extinguisher", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 #most powerful weapon
-Item.create(:name =>"Nerf Gun", :attack_damage=>100, :hp_modifier=>0, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name => "Vintage Nerf Gun, circa 1986", :attack_damage => 100, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
 #####################
-Item.create(:name =>"A Baby Seal", :attack_damage=>5, :hp_modifier=>1, :in_backpack?=>false, :room_id=>nil)
-Item.create(:name =>"Charizard (First Edition) 'Wow!'", :attack_damage=>5, :hp_modifier=>5, :in_backpack?=>false, :room_id=>nil)
+Item.create(:name => "A Baby Seal", :attack_damage => 5, :hp_modifier => 1, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "8oz Cup of Coffee (Americano)'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
 
 
 # rooms
@@ -58,4 +60,11 @@ Room.create({:x_coordiante => 5, :y_coordinate => 5, :north => FALSE, :south => 
 # Monsters
 
 Monster.create(:description => "Zombie", :hp => 20, :ap => 5, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
+Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
 Monster.create(:description => "Your stupid boss... as a zombie", :hp => 50, :ap => 10, :killed_by_player => false, :room_id => nil)
