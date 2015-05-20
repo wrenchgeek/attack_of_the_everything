@@ -14,9 +14,9 @@ describe(Player) do
 
 	describe '#move' do
 		it 'allows player to move North, South, East, or West' do
-			test_player = Player.create(room_id: 1)
-			current_room = Room.create(id: 1, x_coordinate: 3, y_coordinate: 3, north: true)
-			new_room = Room.create(id: 2, x_coordinate: 3, y_coordinate: 4, north: true)
+			test_player = Player.create(room_id: 2)
+			current_room = Room.create(id: 2, x_coordinate: 3, y_coordinate: 3, north: true)
+			new_room = Room.create(id: 3, x_coordinate: 3, y_coordinate: 4, north: true)
 			test_player.move("north")
 			expect(test_player.room_id).to eq(new_room.id)
 		end
@@ -30,6 +30,18 @@ describe(Player) do
 			test_player.take(test_weapon)
 			test_player.attack(test_monster, test_weapon)
 			expect(test_monster.hp).to eq(7)
+		end
+		it 'tests to see if player can kill a monster' do
+			test_player = Player.create(room_id: 1)
+			test_monster = Monster.create(room_id: 1, hp: 10)
+			test_weapon = Item.create(name: "hammer", in_backpack?: false, room_id: 1, attack_damage: 3)
+			test_player.take(test_weapon)
+			test_player.attack(test_monster, test_weapon)
+			test_player.attack(test_monster, test_weapon)
+			test_player.attack(test_monster, test_weapon)
+			test_player.attack(test_monster, test_weapon)
+			expect(test_monster.hp).to eq(-2)
+			expect(test_monster.killed_by_player).to eq(true)
 		end
 	end
 

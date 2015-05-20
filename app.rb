@@ -3,7 +3,6 @@ Bundler.require(:default, :production)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 @@entries = []
-
 # @@room = Room.create(:x_coordinate => 1, :y_coordinate => 1)
 # @@monster = Monster.create(:description => "A horrible baby", :hp => 100, :ap => 20, :room_id => @@room.id)
 # @@item = Item.create(:name => "wrench", :usable? => true, :room_id => @@room.id, attack_damage: 40)
@@ -12,7 +11,7 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 #this is all kind of a dumb way to do it i need to autogenerate monsters somewhere .
 get('/') do
-	@room = Room.find(2)
+	@room = Room.find(1)
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
