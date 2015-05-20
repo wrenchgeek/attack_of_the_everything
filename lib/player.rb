@@ -3,16 +3,19 @@ class Player < ActiveRecord::Base
 
   def attack(monster, item)
     room_id = self.room_id
-    monster_encountered = Monster.where(room_id: room_id).first
+    monster = Monster.where(room_id: room_id).first
     damage_given = item.attack_damage
+<<<<<<< HEAD
     monster_encountered.update(hp: (monster_encountered.hp -= damage_given))
+=======
+    monster.update(hp: (monster.hp -= damage_given))
+>>>>>>> 67869a00eb56f37efb838b47b85c2a8e3ee92c89
   end
 
-
   def take(item)
-    if item.room_id == player.room_id
-      inventory.push(item)
-      item.room_id = nil
+    if item.room_id == self.room_id
+      item.update(in_backpack?: true)
+      item.update(room_id: nil)
     end
   end
 
