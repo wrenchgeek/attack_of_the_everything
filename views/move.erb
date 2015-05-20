@@ -1,6 +1,6 @@
-<%= @@entries.split(" ") %>
+<%= puts @@entries.split(" ") %>
 
-<% if @input.include?(attack) %>
+<% if @input.include?("attack") %>
 	<% if @monster.killed_by_player? == false %>
 	You <%= @input_string %>. Its HP is now <%= @monster.hp %>
 	<% else %>
@@ -17,6 +17,7 @@
 <% end %>
 
 <form action="/<%= @room.id %>" method="post">
+	<input type ="hidden" name="_method" value="patch">
 	<input type="hidden" name="hidden_id_room" value="<%= @room.id %>">
 
     <input id="action" name="action" type="text">
