@@ -2,6 +2,8 @@ require("bundler/setup")
 Bundler.require(:default, :production)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+@@entries = []
+
 # @@room = Room.create(:x_coordinate => 1, :y_coordinate => 1)
 # @@monster = Monster.create(:description => "A horrible baby", :hp => 100, :ap => 20, :room_id => @@room.id)
 # @@item = Item.create(:name => "wrench", :usable? => true, :room_id => @@room.id, attack_damage: 40)
@@ -14,6 +16,7 @@ get('/') do
 	@monster = Monster.where(room_id: 46).first
 	@item = Item.where(room_id: 46).first
 	@@player = Player.create(:hp => 100, :room_id => @room.id)
+	@@entries.push (@room.description)
 erb(:index)
 end
 
@@ -25,7 +28,7 @@ post('/:room_id') do
 		with_index = @input.index("with")
 		monster_name = @input[1..(with_index-1)].join(" ")
 		@monster = Monster.where(description: monster_name, room_id: @@player.room_id).first
-		weapon_index = with_index + 1
+		weapon_index = @input.[(with_index + 1)..@input.length]
 		@@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @@player.room_id).first)
 		if @monster.hp <= 0
 			@monster.killed_by_player = true
