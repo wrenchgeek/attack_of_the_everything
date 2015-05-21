@@ -1,4 +1,5 @@
 <%= @room.description %>
+<%= @exit_output %>
 
 <form action="/<%= @room.id %>" method="post">
   <input type="hidden" name="hidden_id_room" value="<%= @room.id %>">

@@ -11,18 +11,53 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 #this is all kind of a dumb way to do it i need to autogenerate monsters somewhere .
 get('/') do
-	@room = Room.find(1)
+	@room = Room.find(15)
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
 	@player.update(room_id: @room.id)
 	@@entries.push (@room.description)
+	possible_exits = []
+	if @room.north
+		possible_exits.push(" NORTH")
+	end
+	if @room.south
+		possible_exits.push(" SOUTH")
+	end
+	if @room.east
+		possible_exits.push(" EAST")
+	end
+	if @room.west
+		possible_exits.push(" WEST")
+	end
+	@exit_output = "You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
 erb(:index)
 end
 
 get('/:room_id') do
 	@player = Player.find(1)
 	@room = @player.room_id
+	possible_exits = []
+	if @room.north
+		possible_exits.push(" NORTH")
+	end
+	if @room.south
+		possible_exits.push(" SOUTH")
+	end
+	if @room.east
+		possible_exits.push(" EAST")
+	end
+	if @room.west
+		possible_exits.push(" WEST")
+	end
+	@exit_output = "You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
+
 erb(:move)
 end
 
@@ -31,6 +66,7 @@ post('/:room_id') do
 	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
 	@input_string = params.fetch("action").downcase
 	@input = @input_string.split(" ")
+	@room = Room.find(@player.room_id)
 	if @input.include?("with")
 		with_index = @input.index("with")
 		monster_name = @input[1..(with_index-1)].join(" ")
@@ -44,14 +80,31 @@ post('/:room_id') do
 		else @monster.attack(@player)
 		end
 	elsif @input.include?("look")
-		@room = Room.find(@player.room_id)
 		puts @room.description
 	elsif Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
 	elsif @input.include?("move")
 			@player.move(@input[1])
-		else
 	end
+
+	possible_exits = []
+	if @room.north
+		possible_exits.push(" NORTH")
+	end
+	if @room.south
+		possible_exits.push(" SOUTH")
+	end
+	if @room.east
+		possible_exits.push(" EAST")
+	end
+	if @room.west
+		possible_exits.push(" WEST")
+	end
+	@exit_output = "You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
+
 	@room = Room.find(@player.room_id.to_i)
 	erb(:move)
 @@entries.push(erb(:move))
@@ -79,6 +132,24 @@ patch('/:room_id') do
 			# redirect("/#{@player.room_id}")
 	end
 	@room = Room.find(@player.room_id)
+	possible_exits = []
+	if @room.north
+		possible_exits.push(" NORTH")
+	end
+	if @room.south
+		possible_exits.push(" SOUTH")
+	end
+	if @room.east
+		possible_exits.push(" EAST")
+	end
+	if @room.west
+		possible_exits.push(" WEST")
+	end
+	@exit_output = "You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
+
 	erb(:move2)
 # @@entries.push(erb(:move2))
 end
