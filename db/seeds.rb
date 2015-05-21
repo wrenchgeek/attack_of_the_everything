@@ -17,22 +17,23 @@ Item.create(:name => "Machete used from the 2010 film 'Machete', starring Danny 
 Item.create(:name => "Miller High Life, 32oz", :attack_damage => 0, :hp_modifier => 50, :in_backpack? => false, :room_id => nil)
 
 # standard items found in rooms
-Item.create(:name => "Katana", :attack_damage => 25, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Stapler (brand new)", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Chainsaw", :attack_damage => 20, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "Apple", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 4)
-Item.create(:name => "Baseball Bat", :attack_damage => 15, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
-Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 7)
-Item.create(:name => "Arby's Original Roast Beef Sandwich", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => 10)
-Item.create(:name => "Whiskey, double, on the rocks", :attack_damage => 2, :hp_modifier => 100, :in_backpack? => false, :room_id => 12)
-Item.create(:name => "Fire Extinguisher", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+
+Item.create(:name => "Katana", :attack_damage => 25, :hp_modifier => 0, :in_backpack? => false, :room_id => 2)
+Item.create(:name => "Stapler (brand new)", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => 15)
+Item.create(:name => "Chainsaw", :attack_damage => 20, :hp_modifier => 0, :in_backpack? => false, :room_id => 12)
+Item.create(:name => "Apple", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 20)
+Item.create(:name => "Baseball Bat", :attack_damage => 15, :hp_modifier => 0, :in_backpack? => false, :room_id => 25)
+Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 10)
+Item.create(:name => "Arby's Original Roast Beef Sandwich", :attack_damage => 8, :hp_modifier => 3, :in_backpack? => false, :room_id => 13)
+Item.create(:name => "Whiskey, double, on the rocks", :attack_damage => 7, :hp_modifier => 100, :in_backpack? => false, :room_id => 21)
+Item.create(:name => "Fire Extinguisher", :attack_damage => 2, :hp_modifier => 0, :in_backpack? => false, :room_id => 16)
 #most powerful weapon
-Item.create(:name => "Vintage Nerf Gun, circa 1986", :attack_damage => 100, :hp_modifier => 0, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Vintage Nerf Gun, circa 1986", :attack_damage => 100, :hp_modifier => 0, :in_backpack? => false, :room_id => 1)
 #####################
-Item.create(:name => "A Baby Seal", :attack_damage => 5, :hp_modifier => 1, :in_backpack? => false, :room_id => 14)
-Item.create(:name => "8oz Cup of Coffee (Americano)'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 17)
-Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 23)
-Item.create(:name => "Capri Sun, 8oz 'Pacific Cooler'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 20)
+Item.create(:name => "A Baby Seal", :attack_damage => 5, :hp_modifier => 1, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "8oz Cup of Coffee (Americano)'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
+Item.create(:name => "Capri Sun, 8oz 'Pacific Cooler'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => nil)
 
 # rooms
 
@@ -74,8 +75,11 @@ Monster.create(:description => "Willem Dafoe, as himself", :hp => 40, :ap => 10,
 Monster.create(:description => "Zombie Jesus", :hp => 40, :ap => 10, :killed_by_player => false, :room_id => 9)
 Monster.create(:description => "Forever Alone Zombie", :hp => 20, :ap => 5, :killed_by_player => false, :room_id => 15)
 Monster.create(:description => "Zombie Steve 7", :hp => 40, :ap => 10, :killed_by_player => false, :room_id => 13)
-Monster.create(:description => "Your Boss, not sure if zombie or not -- kill him/her anyway!", :hp => 60, :ap => 20, :killed_by_player => false, :room_id => 11)
+Monster.create(:description => "Your Boss, not sure if zombie or not -- kill him/her anyway!", :hp => 150, :ap => 20, :killed_by_player => false, :room_id => 11)
 Monster.create(:description => "A Zombie Called 'IT'", :hp => 40, :ap => 10, :killed_by_player => false, :room_id => 16)
 Monster.create(:description => "The Zombie formerly known as Prince", :hp => 40, :ap => 10, :killed_by_player => false, :room_id => 18)
 Monster.create(:description => "Zombie Steve 8", :hp => 40, :ap => 10, :killed_by_player => false, :room_id => 19)
 Monster.create(:description => "Zombie Steve Infinity", :hp => 100, :ap => 10, :killed_by_player => false, :room_id => 21)
+Monster.create(:description => "Sir Zombie Not Appearing in this Film", :hp => 40, :ap => 10, :killed_by_player => false, :room_id => 22)
+Monster.create(:description => "Zombie Vampire", :hp => 100, :ap => 10, :killed_by_player => false, :room_id => 24)
+Monster.create(:description => "William Zabka, who appears to have wandered into your office looking for a fight", :hp => 100, :ap => 10, :killed_by_player => false, :room_id => 25)
