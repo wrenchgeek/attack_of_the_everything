@@ -1,5 +1,16 @@
+<% if @player.hp <= 0 %>
+You fall to the ground, defeated. Everything goes black. You see a beautiful light off in the distance. You've seen enough movies to know what's going on, so you run away from the light as fast as you can. Suddenly, you open your eyes. You can't see! You've gone blind!
+
+Oh, wait, it's actually just pretty dark in here. Your eyes adjust to the light.
+
+
+<br>
+<% @player.update(hp: 100) %>
+<% end %>
+
 <%= @room.description %>
 <%= @exit_output %>
+
 
 <form action="/<%= @room.id %>" method="post">
   <input type ="hidden" name="_method" value="patch">

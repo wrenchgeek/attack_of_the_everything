@@ -6,6 +6,8 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 @@verbs = ["assault", "assail", "attack", "beset", "bedevil", "mildly irritate", "hit", "concuss", "attempt to murder", "batter", "pummel"]
 
+@@history = []
+
 get('/') do
 
 	##sets up starting level
@@ -13,8 +15,6 @@ get('/') do
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
-	@player.update(room_id: @room.id)
-
 	##displays exits
 	possible_exits=[]
 	if @room.north
@@ -33,12 +33,11 @@ get('/') do
 	possible_exits.each() do |out|
 		@exit_output = @exit_output.concat(out)
 	end
-
 erb(:index)
+@@history.push(erb(:index))
 end
 
 patch('/:room_id') do
-
 	##sets up room
 	@player = Player.find(1)
 	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
@@ -59,8 +58,16 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 		with_index = @input.index("with")
 		if with_index != nil
 		monster_name = @input[1..(with_index-1)].join(" ")
-		item_name = @input[(with_index + 1)..@input.length].join(" ")
-		@item = Item.where(name: item_name).first
+		@item_name = @input[(with_index + 1)..@input.length].join(" ")
+		# @compare_names = []
+		# Item.all.each do |item|
+		# 	item_name = item.name.downcase
+		# 	if item_name == @item_name
+		# 		@compare_names.push item.name
+		# 	end
+		# end
+		# @item_name = @compare_names.first
+		@item = Item.where(name: @item_name).first
 	end
 		if @item != nil
 			@user_is_dumb = false
@@ -146,10 +153,13 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 	if @room.west
 		possible_exits.push(" WEST")
 	end
-	@exit_output = "You can go"
+	@exit_output = " \n You can go"
 	possible_exits.each() do |out|
 		@exit_output = @exit_output.concat(out)
 	end
+	if @player.hp <= 0
+		redirect('/')
+	end
 	erb(:move)
-
+	@@history.push(erb(:move))
 end
