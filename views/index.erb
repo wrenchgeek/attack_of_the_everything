@@ -9,7 +9,36 @@ Oh, wait, it's actually just pretty dark in here. Your eyes adjust to the light.
 <% end %>
 
 <%= @room.description %>
+<br>
+<br>
+<% if @room.monsters.any? %>
+  <% @room.monsters.each do |monster| %>
+    <% if monster.killed_by_player? == false %>
+    <% if monster.attack_counter == 0 %>
+    <br>
+    There seems to be something in here. It is <%= monster.description %>!
+    <br>
+      <% elsif monster.attack_counter > 0 %>
+      <br>
+      <%= monster.description %> attacks you for <%= monster.ap %> damage!
+      <br>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @room.items.any? %>
+  <% @room.items.each do |item| %>
+    <% if item.in_backpack? == false %>
+    <br>
+    You notice a <%= item.name %> laying there, ripe for the taking.
+    <br>
+    <% end %>
+  <% end %>
+<% end %>
+
 <%= @exit_output %>
+<h3>What do you do?</h3>
 
 
 <form action="/<%= @room.id %>" method="post">

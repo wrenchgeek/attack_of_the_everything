@@ -35,16 +35,16 @@ class Player < ActiveRecord::Base
 
   def move(direction)
     current_room = Room.find(self.room_id)
-    if direction == "north" && current_room.north == true
+    if direction == "north" && current_room.north
       current_room = Room.where(x_coordinate: current_room.x_coordinate, y_coordinate: (current_room.y_coordinate + 1)).first
       self.update(room_id: current_room.id)
-    elsif direction == "south" && current_room.south == true
+    elsif direction == "south" && current_room.south
       current_room = Room.where(x_coordinate: current_room.x_coordinate, y_coordinate: (current_room.y_coordinate - 1)).first
       self.update(room_id: current_room.id)
-    elsif direction == "east" && current_room.east == true
+    elsif direction == "east" && current_room.east
       current_room = Room.where(y_coordinate: current_room.y_coordinate, x_coordinate: (current_room.x_coordinate + 1)).first
       self.update(room_id: current_room.id)
-    elsif direction == "west" && current_room.west == true
+    elsif direction == "west" && current_room.west
       current_room = Room.where(y_coordinate: current_room.y_coordinate, x_coordinate: (current_room.x_coordinate - 1)).first
       self.update(room_id: current_room.id)
     end

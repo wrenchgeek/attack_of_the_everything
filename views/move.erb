@@ -1,18 +1,21 @@
-<% @@history.each do |event| %>
-<%= %>
-<br>
-<% end %>
+<h4>HP: <%= @player.hp %></h4>
+
+
+<% if (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
+
 
 <% if (@user_is_dumb == true) %>
 	Attack it with what? Try attacking with a specific object.
 	<br>
 	<% elsif (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
+
 	<% if @monster.killed_by_player? == false %>
 	You <%= @@verbs[rand(0..10)] %> the <%= @monster.description %> with the <%= @item.name %>. Its HP is now <%= @monster.hp %>.
 	<br>
 	<% else %>
 		The <%= @monster.description %> lays at your feet, dead as a doornail.
 		<br>
+	<% end %>
 	<% end %>
 <% elsif (@input.include?("look")) %>
 	<%= @room.description %>
@@ -36,6 +39,14 @@
  Do what now?
 <% end %>
 
+<% if @input.include?("inventory") || @input.eql?(["i"]) %>
+Your inventory contains:
+<% @inventory.each do |item| %>
+<br>
+<%= item.name %>
+<% end %>
+<br>
+<% end %>
 
 
 <% if @old_room.id != @player.room_id %>
@@ -46,11 +57,21 @@
 <% if @room.monsters.any? %>
 	<% @room.monsters.each do |monster| %>
 		<% if monster.killed_by_player? == false %>
-		There seems to be something in here. It is <%= monster.description %>
+		<% if monster.attack_counter == 0 %>
 		<br>
+		There seems to be something in here. It is <%= monster.description %>!
+		<br>
+			<% elsif monster.attack_counter > 0 %>
+			<br>
+			<%= monster.description %> attacks you for <%= monster.ap %> damage!
+			<br>
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>
+
+
+
 
 <% if @room.items.any? %>
 	<% @room.items.each do |item| %>
@@ -61,9 +82,12 @@
 		<% end %>
 	<% end %>
 <% end %>
+<br>
 
+<br>
 <%= @exit_output %>
-
+<br><br>
+<h3>What do you do?</h3>
 <form action="/<%= @room.id %>" method="post">
 	<input type ="hidden" name="_method" value="patch">
 	<input type="hidden" name="hidden_id_room" value="<%= @room.id %>">
