@@ -6,6 +6,9 @@ class Player < ActiveRecord::Base
     if item.in_backpack? == true
       new_monster_hp = monster.hp - item.attack_damage
       monster.update(hp: new_monster_hp)
+      if monster.hp <= 0
+        monster.update(killed_by_player: true)
+      end
     end
   end
 
@@ -32,7 +35,7 @@ class Player < ActiveRecord::Base
 
 
   def move(direction)
-    current_room = Room.find(self.room_id.to_i)
+    current_room = Room.find(self.room_id)
     if direction == "north" && current_room.north == true
       current_room = Room.where(x_coordinate: current_room.x_coordinate, y_coordinate: (current_room.y_coordinate + 1)).first
       self.update(room_id: current_room.id)
