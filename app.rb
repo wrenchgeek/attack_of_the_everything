@@ -44,6 +44,13 @@ patch('/:room_id') do
 	##ALL THE STUFF BELOW HERE READS THE INPUT AND DOES THINGS ACCORDINGLY
 	@input_string = params.fetch("action")
 	@input = @input_string.split(" ")
+	@boss = Monster.find(11)
+	@exit_room = Room.find(11)
+
+	if @boss.killed_by_player == TRUE
+		@exit_room.update({:west => TRUE})
+	end
+
 
 	##IF INPUT == ATTACK
 
