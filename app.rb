@@ -4,6 +4,7 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 @@commands = ["attack", "fight", "kill", "hit", "look", "pick", "get", "take", "move", "go", "walk"]
 
+@@verbs = ["assault", "assail", "attack", "beset", "bedevil", "mildly irritate", "hit", "concuss", "attempt to murder", "batter", "pummel"]
 
 get('/') do
 
@@ -47,11 +48,15 @@ patch('/:room_id') do
 
 	##IF INPUT == ATTACK
 
-	if @input.include?("with") && (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
+if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
 		with_index = @input.index("with")
+		if with_index != nil
 		monster_name = @input[1..(with_index-1)].join(" ")
 		item_name = @input[(with_index + 1)..@input.length].join(" ")
 		@item = Item.where(name: item_name).first
+	end
+		if @item != nil
+			@user_is_dumb = false
 		partial_recognition_array = []
 		if Monster.where(description: monster_name).first == nil
 			Monster.all.each do |monster|
@@ -76,6 +81,8 @@ patch('/:room_id') do
 			@monster.killed_by_player = true
 		else @monster.attack(@player)
 		end
+	else @user_is_dumb = true
+	end
 
 	##LOOK AROUND
 
