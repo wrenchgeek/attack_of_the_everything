@@ -1,22 +1,31 @@
-<% if (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
+<% if (@user_is_dumb == true) %>
+	Attack it with what? Try attacking with a specific object.
+	<br>
+	<% elsif (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
 	<% if @monster.killed_by_player? == false %>
-	You beset <%= @monster.description %> with <%= @item.name %>. Its HP is now <%= @monster.hp %>
+	You <%= @@verbs[rand(0..10)] %> the <%= @monster.description %> with the <%= @item.name %>. Its HP is now <%= @monster.hp %>.
+	<br>
 	<% else %>
 		The <%= @monster.description %> lays at your feet, dead as a doornail.
+		<br>
 	<% end %>
 <% elsif (@input.include?("look")) %>
 	<%= @room.description %>
 	<% elsif (@input.include?("take") || @input.include?("pick") || @input.include?("get")) %>
 		<% if @does_not_compute %>
 			I don't understand what you're trying to pick up.
+			<br>
 		<% else %>
 		You <%= @input[0] %> the  <%= @item.name %> and put it in your backpack.
+		<br>
 		<% end %>
 	<% elsif (@input.include?("move") || @input.include?("go") ||@input.include?("walk")) %>
 		<% if @old_room.id != @player.room_id %>
 			You go <%= @input[1] %>.
+			<br>
 		<% else %>
-			I don't understand where you're trying to go.
+			You immediately walk into a wall, temporarily knocking yourself unconscious. You wake up with a nasty headache, but happy to have proved once and for all that you are not a ghost.
+			<br>
 		<% end %>
 <% elsif @@commands.include?(@input[0]) == false %>
  Do what now?
@@ -26,12 +35,12 @@
 
 <% if @old_room.id != @player.room_id %>
 <p><%= @room.description %></p>
+<br>
 <% end %>
 
 <% if @room.monsters.any? %>
 	<% @room.monsters.each do |monster| %>
 		<% if monster.killed_by_player? == false %>
-		<br>
 		There seems to be something in here. It is <%= monster.description %>
 		<br>
 		<% end %>
@@ -53,5 +62,5 @@
 <form action="/<%= @room.id %>" method="post">
 	<input type ="hidden" name="_method" value="patch">
 	<input type="hidden" name="hidden_id_room" value="<%= @room.id %>">
-  <input id="action" name="action" type="text">
+  <input id="action" name="action" type="text" autofocus>
 </form>
