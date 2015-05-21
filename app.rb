@@ -5,87 +5,137 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 @@commands = ["attack", "fight", "kill", "hit", "look", "pick", "get", "take", "move", "go", "walk"]
 
 
-# @@entries = []
-# @@room = Room.create(:x_coordinate => 1, :y_coordinate => 1)
-# @@monster = Monster.create(:description => "A horrible baby", :hp => 100, :ap => 20, :room_id => @@room.id)
-# @@item = Item.create(:name => "wrench", :usable? => true, :room_id => @@room.id, attack_damage: 40)
-# @@input = nil
-
-
-#this is all kind of a dumb way to do it i need to autogenerate monsters somewhere .
 get('/') do
+
+	##sets up starting level
 	@room = Room.find(15)
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
 	@player.update(room_id: @room.id)
-	# @@entries.push (@room.description)
+
+	##displays exits
+	possible_exits=[]
+	if @room.north
+		possible_exits.push(" NORTH")
+	end
+	if @room.south
+		possible_exits.push(" SOUTH")
+	end
+	if @room.east
+		possible_exits.push(" EAST")
+	end
+	if @room.west
+		possible_exits.push(" WEST")
+	end
+	@exit_output = "You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
+
 erb(:index)
 end
 
-get('/:room_id') do
-	@player = Player.find(1)
-	@room = @player.room_id
-erb(:move)
-end
-
-post('/:room_id') do
-	@player = Player.find(1)
-	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
-	@input_string = params.fetch("action").downcase
-	@input = @input_string.split(" ")
-	if @input.include?("with") && (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
-		with_index = @input.index("with")
-		monster_name = @input[1..(with_index-1)].join(" ")
-		@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
-		weapon = @input[(with_index + 1)..@input.length]
-		@player.send(@input[0].to_sym, @monster, Item.where(name: weapon.join(""), room_id: @player.room_id).first)
-		weapon_index = @input[(with_index + 1)..@input.length]
-		@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @player.room_id).first)
-		if @monster.hp <= 0
-			@monster.killed_by_player = true
-		else @monster.attack(@player)
-		end
-	elsif @input.include?("look")
-		@room = Room.find(@player.room_id)
-		puts @room.description
-	elsif (@input.include?("take") || @input.include?("pick") || @input.include?("get")) && Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
-			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
-	elsif @input.include?("move") || @input.include?("go") ||@input.include?("walk")
-			@player.move(@input[1])
-	end
-	@room = Room.find(@player.room_id.to_i)
-	erb(:move)
-# @@entries.push(erb(:move))
-end
-
 patch('/:room_id') do
+
+	##sets up room
 	@player = Player.find(1)
 	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
-	@input_string = params.fetch("action").downcase
+	##ALL THE STUFF BELOW HERE READS THE INPUT AND DOES THINGS ACCORDINGLY
+	@input_string = params.fetch("action")
 	@input = @input_string.split(" ")
+
+	##IF INPUT == ATTACK
+
 	if @input.include?("with") && (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
 		with_index = @input.index("with")
 		monster_name = @input[1..(with_index-1)].join(" ")
-		@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
-		weapon = @input[(with_index + 1)..@input.length]
-		@player.send(@input[0].to_sym, @monster, Item.where(name: weapon.join(""), room_id: @player.room_id).first)
-		weapon_index = @input[(with_index + 1)..@input.length]
-		@player.send(@input[0].to_sym, @monster, Item.where(name: @input[weapon_index], room_id: @player.room_id).first)
+		item_name = @input[(with_index + 1)..@input.length].join(" ")
+		@item = Item.where(name: item_name).first
+		partial_recognition_array = []
+		if Monster.where(description: monster_name).first == nil
+			Monster.all.each do |monster|
+				partial_check_array = []
+				@input.each do |word|
+					if monster.description.include?(word)
+						partial_check_array.push(word)
+					end
+				end
+				if partial_check_array.length >= 2
+						partial_recognition_array.push(monster)
+						@monster = partial_recognition_array.first
+				elsif partial_recognition_array.length < 2
+					@does_not_compute = true
+				end
+			end
+		else
+			@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
+		end
+		@player.attack(@monster, @item)
 		if @monster.hp <= 0
 			@monster.killed_by_player = true
 		else @monster.attack(@player)
 		end
+
+	##LOOK AROUND
+
 	elsif @input.include?("look")
 		@room = Room.find(@player.room_id)
-		puts @room.description
-	elsif (@input.include?("take") || @input.include?("pick") || @input.include?("get")) && Item.all.include?(Item.where(name: @input[1..@input.length].join(" ")).first)
-			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
+
+	##TAKE AN OBJECT
+
+	elsif (@input.include?("take") || @input.include?("pick") || @input.include?("get"))
+		if Item.where(name: @input[1..@input.length].join(" ")).first == nil
+			partial_recognition_array = []
+			Item.all.each do |item|
+				partial_check_array = []
+				@input.each do |word|
+					if item.name.include?(word)
+						partial_check_array.push(word)
+					end
+				end
+				if partial_check_array.length >= 2
+						partial_recognition_array.push(item)
+						@item = partial_recognition_array.first
+				elsif partial_recognition_array.length < 2
+					@does_not_compute = true
+				end
+			end
+		else
+					@item = (Item.where(name: @input[1..@input.length].join(" ")).first)
+		end
+			@player.take(@item)
+
+	##MOVE
+
 	elsif @input.include?("move") || @input.include?("go") ||@input.include?("walk")
 			@player.move(@input[1])
+
+	##UNRECOGNIZED INPUT
+
 	else "Do what now?"
 	end
-	@room = Room.find(@player.room_id.to_i)
-	erb(:move2)
-# @@entries.push(erb(:move2))
+
+	##DISPLAYS EXITS
+
+	@room = Room.find(@player.room_id)
+	possible_exits = []
+	if @room.north
+		possible_exits.push(" NORTH")
+	end
+	if @room.south
+		possible_exits.push(" SOUTH")
+	end
+	if @room.east
+		possible_exits.push(" EAST")
+	end
+	if @room.west
+		possible_exits.push(" WEST")
+	end
+	@exit_output = "You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
+	erb(:move)
+
 end

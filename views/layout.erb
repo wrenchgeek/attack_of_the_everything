@@ -31,7 +31,7 @@
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active">
-                <a href="./index.html">Home</a>
+                <a href="/">Home</a>
               </li>
               <li class="">
                 <a href="https://github.com/brentagon" target="_blank">brentagon</a>
@@ -91,10 +91,60 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
     <script scr="js/bootstrap.js"></script>
-    <audio autoplay loop>
-    	<source src="_Prelude-In-8-bit.mp3" type="audio/mpeg">
-    		Your browser does not support the audio. Try to imagine a really annoying 8-bit song playing as you go through the game.
-    </audio>
+
+
+    <audio preload="auto" src="_Prelude-In-8-bit.mp3" loop="true" autobuffer autoplay type = "audio/mpeg">
+      Your browser does not support the audio. Try to imagine a really annoying 8-bit song playing as you go through the game.
+</audio>
+
+<script>
+
+function setCookie(c_name,value,exdays)
+{
+    var exdate=new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+    document.cookie=c_name + "=" + c_value;
+}
+
+function getCookie(c_name)
+{
+    var i,x,y,ARRcookies=document.cookie.split(";");
+    for (i=0;i<ARRcookies.length;i++)
+    {
+      x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+      y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+      x=x.replace(/^\s+|\s+$/g,"");
+      if (x==c_name)
+        {
+        return unescape(y);
+        }
+      }
+}
+
+var song = document.getElementsByTagName('audio')[0];
+var played = false;
+var tillPlayed = getCookie('timePlayed');
+function update()
+{
+    if(!played){
+        if(tillPlayed){
+        song.currentTime = tillPlayed;
+        song.play();
+        played = true;
+        }
+        else {
+                song.play();
+                played = true;
+        }
+    }
+
+    else {
+    setCookie('timePlayed', song.currentTime);
+    }
+}
+setInterval(update,1000);
+</script>
 
   </body>
 </html>
