@@ -2,8 +2,9 @@ require("bundler/setup")
 Bundler.require(:default, :production)
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
-@@commands = ["attack", "fight", "kill", "hit", "look", "pick", "get", "take", "move", "go", "walk"]
+@@commands = ["attack", "fight", "kill", "hit", "look", "pick", "get", "take", "move", "go", "walk", "inventory", "i"]
 
+@@verbs = ["assault", "assail", "attack", "beset", "bedevil", "mildly irritate", "hit", "concuss", "attempt to murder", "batter", "pummel"]
 
 get('/') do
 
@@ -12,8 +13,7 @@ get('/') do
 	@monster = Monster.where(room_id: 1).first
 	@item = Item.where(room_id: 1).first
 	@player = Player.find(1)
-	@player.update(room_id: @room.id)
-
+	@player.update(room_id: 15)
 	##displays exits
 	possible_exits=[]
 	if @room.north
@@ -32,52 +32,89 @@ get('/') do
 	possible_exits.each() do |out|
 		@exit_output = @exit_output.concat(out)
 	end
-
 erb(:index)
 end
 
 patch('/:room_id') do
-
 	##sets up room
 	@player = Player.find(1)
 	@old_room = Room.find(params.fetch("hidden_id_room").to_i)
 	##ALL THE STUFF BELOW HERE READS THE INPUT AND DOES THINGS ACCORDINGLY
 	@input_string = params.fetch("action")
 	@input = @input_string.split(" ")
+	@boss = Monster.find(11)
+	@exit_room = Room.find(11)
+
+	if @boss.killed_by_player == TRUE
+		@exit_room.update({:west => TRUE})
+	end
+
 
 	##IF INPUT == ATTACK
 
-	if @input.include?("with") && (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
+if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
 		with_index = @input.index("with")
-		monster_name = @input[1..(with_index-1)].join(" ")
-		item_name = @input[(with_index + 1)..@input.length].join(" ")
-		@item = Item.where(name: item_name).first
-		partial_recognition_array = []
-		if Monster.where(description: monster_name).first == nil
-			Monster.all.each do |monster|
-				partial_check_array = []
-				@input.each do |word|
-					if monster.description.include?(word)
-						partial_check_array.push(word)
+		if with_index != nil
+			monster_name = @input[1..(with_index-1)].join(" ")
+			@item_name = @input[(with_index + 1)..@input.length].join(" ")
+			# @compare_names = []
+			# Item.all.each do |item|
+			# 	item_name = item.name.downcase
+			# 	if item_name == @item_name
+			# 		@compare_names.push item.name
+			# 	end
+			# end
+			# @item_name = @compare_names.first
+			if Item.where(name: @item_name).first != nil
+			@item = Item.where(name: @item_name).first
+			else
+				partial_recognition_array = []
+				Item.all.each do |item|
+					partial_check_array = []
+					@input.each do |word|
+						if item.name.include?(word)
+							partial_check_array.push(word)
+						end
+					end
+					if partial_check_array.length >= 1
+							partial_recognition_array.push(item)
+							@item = partial_recognition_array.first
+					elsif partial_recognition_array.length < 1
+						@does_not_compute = true
 					end
 				end
-				if partial_check_array.length >= 2
-						partial_recognition_array.push(monster)
-						@monster = partial_recognition_array.first
-				elsif partial_recognition_array.length < 2
-					@does_not_compute = true
-				end
 			end
-		else
+		end
+		if @item != nil
+			@user_is_dumb = false
+		partial_recognition_array = []
+			if Monster.where(description: monster_name).first == nil
+				Monster.all.each do |monster|
+					partial_check_array = []
+					@input.each do |word|
+						if monster.description.include?(word)
+							partial_check_array.push(word)
+						end
+					end
+					if partial_check_array.length >= 2
+							partial_recognition_array.push(monster)
+							@monster = partial_recognition_array.first
+					elsif partial_recognition_array.length < 2
+						@does_not_compute = true
+					end
+				end
+			else
 			@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
 		end
 
 
-		# if @monster.hp <= 0
-		# 	@monster.killed_by_player = true
-		# else @monster.attack(@player)
-
-
+		@player.attack(@monster, @item)
+		if @monster.hp <= 0
+			@monster.killed_by_player = true
+		else @monster.attack(@player)
+		end
+	else @user_is_dumb = true
+	end
 
 
 	##LOOK AROUND
@@ -97,10 +134,10 @@ patch('/:room_id') do
 						partial_check_array.push(word)
 					end
 				end
-				if partial_check_array.length >= 2
+				if partial_check_array.length >= 1
 						partial_recognition_array.push(item)
 						@item = partial_recognition_array.first
-				elsif partial_recognition_array.length < 2
+				elsif partial_recognition_array.length < 1
 					@does_not_compute = true
 				end
 			end
@@ -115,8 +152,10 @@ patch('/:room_id') do
 			@player.move(@input[1])
 
 	##UNRECOGNIZED INPUT
+elsif @input.include?("inventory") || @input.eql?(["i"])
+	@inventory = Item.where(in_backpack?: true)
 
-	else "Do what now?"
+else "Do what now?"
 	end
 
 
@@ -138,10 +177,6 @@ patch('/:room_id') do
 	if @room.west
 		possible_exits.push(" WEST")
 	end
-	@exit_output = "You see doors to the  "
-	possible_exits.each() do |out|
-		@exit_output = @exit_output.concat(out)
-	end
 
 	##MONSTER ATTACK
 
@@ -152,6 +187,13 @@ patch('/:room_id') do
 			end
 			monster_attack_counter = @monster.attack_counter
 			@monster.update(attack_counter: (monster_attack_counter + 1))
-		end
+	end
+	@exit_output = " \n You can go"
+	possible_exits.each() do |out|
+		@exit_output = @exit_output.concat(out)
+	end
+	if @player.hp <= 0
+		redirect('/')
+	end
 	erb(:move)
 end

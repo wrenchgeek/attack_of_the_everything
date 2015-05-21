@@ -1,46 +1,67 @@
 <h4>HP: <%= @player.hp %></h4>
 
-<!-- Do this later -->
-<h4>Items in backpack: </h4>
-
 
 <% if (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
+
+
+<% if (@user_is_dumb == true) %>
+	Attack it with what? Try attacking with a specific object.
+	<br>
+	<% elsif (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
+
 	<% if @monster.killed_by_player? == false %>
-	You beset <%= @monster.description %> with <%= @item.name %>. Its HP is now <%= @monster.hp %>
+	You <%= @@verbs[rand(0..10)] %> the <%= @monster.description %> with the <%= @item.name %>. Its HP is now <%= @monster.hp %>.
+	<br>
 	<% else %>
 		The <%= @monster.description %> lays at your feet, dead as a doornail.
+		<br>
+	<% end %>
 	<% end %>
 <% elsif (@input.include?("look")) %>
 	<%= @room.description %>
 	<% elsif (@input.include?("take") || @input.include?("pick") || @input.include?("get")) %>
 		<% if @does_not_compute %>
 			I don't understand what you're trying to pick up.
+			<br>
 		<% else %>
 		You <%= @input[0] %> the  <%= @item.name %> and put it in your backpack.
+		<br>
 		<% end %>
 	<% elsif (@input.include?("move") || @input.include?("go") ||@input.include?("walk")) %>
 		<% if @old_room.id != @player.room_id %>
 			You go <%= @input[1] %>.
+			<br>
 		<% else %>
-			I don't understand where you're trying to go.
+			You immediately walk into a wall, temporarily knocking yourself unconscious. You wake up with a nasty headache, but happy to have proved once and for all that you are not a ghost.
+			<br>
 		<% end %>
 <% elsif @@commands.include?(@input[0]) == false %>
  Do what now?
 <% end %>
 
+<% if @input.include?("inventory") || @input.eql?(["i"]) %>
+Your inventory contains:
+<% @inventory.each do |item| %>
+<br>
+<%= item.name %>
+<% end %>
+<br>
+<% end %>
 
 
 <% if @old_room.id != @player.room_id %>
 <p><%= @room.description %></p>
+<br>
 <% end %>
 
 <% if @room.monsters.any? %>
 	<% @room.monsters.each do |monster| %>
 		<% if monster.killed_by_player? == false %>
+		<% if monster.attack_counter == 0 %>
 		<br>
 		There seems to be something in here. It is <%= monster.description %>!
 		<br>
-			<% if monster.attack_counter > 0 %>
+			<% elsif monster.attack_counter > 0 %>
 			<br>
 			<%= monster.description %> attacks you for <%= monster.ap %> damage!
 			<br>
