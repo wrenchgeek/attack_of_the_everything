@@ -79,7 +79,8 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 					if partial_check_array.length >= 1
 							partial_recognition_array.push(item)
 							@item = partial_recognition_array.first
-					elsif partial_recognition_array.length < 1
+							@does_not_compute = false
+					elsif partial_recognition_array.length == 0
 						@does_not_compute = true
 					end
 				end
@@ -137,7 +138,8 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 				if partial_check_array.length >= 1
 						partial_recognition_array.push(item)
 						@item = partial_recognition_array.first
-				elsif partial_recognition_array.length < 1
+						@does_not_compute = false
+				elsif partial_recognition_array.length == 0
 					@does_not_compute = true
 				end
 			end
