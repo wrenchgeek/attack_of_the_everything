@@ -51,7 +51,6 @@ post('/:room_id') do
 			@player.send(@input[0].to_sym, Item.where(name: @input[1..@input.length].join(" ")).first)
 	elsif @input.include?("move")
 			@player.move(@input[1])
-		else
 	end
 	@room = Room.find(@player.room_id.to_i)
 	erb(:move)
@@ -82,9 +81,4 @@ patch('/:room_id') do
 	@room = Room.find(@player.room_id)
 	erb(:move2)
 # @@entries.push(erb(:move2))
-end
-
-get('/:room_id')
-@player = Player.find(1)
-@room = Room.find(@player.room_id)
 end
