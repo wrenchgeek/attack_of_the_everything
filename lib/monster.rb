@@ -14,6 +14,7 @@ class Monster < ActiveRecord::Base
         player.update({:hp => player_hp})
         puts 'Player screams, "AAawwgghghghh!!11!1!"'
       end
+      self.attack_counter + 1
     end
   end
 

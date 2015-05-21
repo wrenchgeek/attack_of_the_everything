@@ -71,11 +71,14 @@ patch('/:room_id') do
 		else
 			@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
 		end
-		@player.attack(@monster, @item)
-		if @monster.hp <= 0
-			@monster.killed_by_player = true
-		else @monster.attack(@player)
-		end
+
+
+		# if @monster.hp <= 0
+		# 	@monster.killed_by_player = true
+		# else @monster.attack(@player)
+
+
+
 
 	##LOOK AROUND
 
@@ -136,6 +139,7 @@ patch('/:room_id') do
 	possible_exits.each() do |out|
 		@exit_output = @exit_output.concat(out)
 	end
+
 	erb(:move)
 
 end
