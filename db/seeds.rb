@@ -1,12 +1,11 @@
 require('./lib/item.rb')
 require('./lib/monster.rb')
 require('./lib/room.rb')
+require('./lib/player.rb')
 
 Player.create(room_id: nil, hp: 100)
 #don't forget to run <code> run $ rake db:seed </code>
 
-<<<<<<< HEAD
-=======
 #keep in mind: will be at least 10 levels if we each come up with at least 2-3
 
 # items dropped from monsters (need one per monster)
@@ -35,7 +34,6 @@ Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modi
 Item.create(:name => "Capri Sun, 8oz 'Pacific Cooler'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 20)
 
 # rooms
->>>>>>> 7e0b9eb744f3c1070be1702e3db490be01173e76
 Room.create({:x_coordinate => 1, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in your buddy Steve's office. It's a horrible mess"})
 Room.create({:x_coordinate => 2, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in your boss's office. It is covered in Japanese paraphernalia, despite him having no heritage from the region."})
 Room.create({:x_coordinate => 3, :y_coordinate => 5, :north => FALSE, :south => TRUE, :east => TRUE, :west => FALSE, :description => "You are in the foyer to your boss's receptionist's personal assistant's office.  You suddenly remember how ridiculous your former life was."})
@@ -50,7 +48,7 @@ Room.create({:x_coordinate => 1, :y_coordinate => 3, :north => TRUE, :south => T
 Room.create({:x_coordinate => 2, :y_coordinate => 3, :north => FALSE, :south => FALSE, :east => FALSE, :west => TRUE, :description => "You are in the store room. You suddenly become nostalgic for the days that you used to hide in here to avoid work."})
 Room.create({:x_coordinate => 3, :y_coordinate => 3, :north => FALSE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in the employee break room. Roger forgot to clean up his mess again"})
 Room.create({:x_coordinate => 4, :y_coordinate => 3, :north => FALSE, :south => FALSE, :east => FALSE, :west => TRUE, :description => "You are in the hallway right outside of your office. There's blood and brains dripping from the wall."})
-Room.create({:x_coordinate => 5, :y_coordinate => 3, :north => FALSE, :south => FALSE, :east => TRUE, :west => FALSE, :description => "You are in your hum drum office. It is the same as it was yesterday, and the day before that, and the day before that."})
+Room.create({:x_coordinate => 5, :y_coordinate => 3, :north => FALSE, :south => FALSE, :east => FALSE, :west => TRUE, :description => "You are in your hum drum office. It is the same as it was yesterday, and the day before that, and the day before that."})
 Room.create({:x_coordinate => 1, :y_coordinate => 2, :north => TRUE, :south => FALSE, :east => TRUE, :west => FALSE, :description => "You are right by the copier. It is continually making copies of Debora's half eaten face."})
 Room.create({:x_coordinate => 2, :y_coordinate => 2, :north => FALSE, :south => TRUE, :east => FALSE, :west => TRUE, :description => "You are at the water cooler. There is nobody to talk to about last nights Game of Thrones episod."})
 Room.create({:x_coordinate => 3, :y_coordinate => 2, :north => TRUE, :south => TRUE, :east => FALSE, :west => FALSE, :description => "You are in the hallway to the break room. It is remakably free of distiguishing features."})

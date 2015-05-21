@@ -1,4 +1,4 @@
-<% if @input.include?("attack") %>
+<% if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
 	<% if @monster.killed_by_player? == false %>
 	You <%= @input_string %>. Its HP is now <%= @monster.hp %>
 	<% else %>
@@ -6,16 +6,12 @@
 	<% end %>
 <% elsif @input.include?("look") %>
 	<%= @room.description %>
-<% else %>
-	You <%= @input_string %>
+<% elsif @@commands.include?(@input[0])== false %>
+	 Do what now?
 <% end %>
 
 <% if @old_room.id != @player.room_id %>
 <%= @room.description %>
-<% end %>
-
-<% if @input.include?("look") %>
-<%=	@room.description %>
 <% end %>
 
 <form action="/<%= @room.id %>" method="post">
