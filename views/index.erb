@@ -1,5 +1,8 @@
 <%= @room.description %>
+<br>
+<br>
 <%= @exit_output %>
+<h3>What do you do?</h3>
 
 <form action="/<%= @room.id %>" method="post">
   <input type ="hidden" name="_method" value="patch">

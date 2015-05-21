@@ -119,6 +119,9 @@ patch('/:room_id') do
 	else "Do what now?"
 	end
 
+
+
+
 	##DISPLAYS EXITS
 
 	@room = Room.find(@player.room_id)
@@ -135,11 +138,20 @@ patch('/:room_id') do
 	if @room.west
 		possible_exits.push(" WEST")
 	end
-	@exit_output = "You can go"
+	@exit_output = "You see doors to the  "
 	possible_exits.each() do |out|
 		@exit_output = @exit_output.concat(out)
 	end
 
-	erb(:move)
+	##MONSTER ATTACK
 
+	if @room.monsters.any?
+			@monster = Monster.where(room_id: @player.room_id).first
+			if @monster.attack_counter > 0
+				@monster.attack(@player)
+			end
+			monster_attack_counter = @monster.attack_counter
+			@monster.update(attack_counter: (monster_attack_counter + 1))
+		end
+	erb(:move)
 end
