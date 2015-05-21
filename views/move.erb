@@ -1,13 +1,25 @@
-<% if @input.include?("attack") %>
+<% if (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
 	<% if @monster.killed_by_player? == false %>
-	You <%= @input_string %>. Its HP is now <%= @monster.hp %>
+	You beset <%= @monster.description %> with <%= @item.name %>. Its HP is now <%= @monster.hp %>
 	<% else %>
 		The <%= @monster.description %> lays at your feet, dead as a doornail.
 	<% end %>
-<% elsif @input.include?("look") %>
+<% elsif (@input.include?("look")) %>
 	<%= @room.description %>
-<% else %>
-	You <%= @input_string %>
+	<% elsif (@input.include?("take") || @input.include?("pick") || @input.include?("get")) %>
+		<% if @does_not_compute %>
+			I don't understand what you're trying to pick up.
+		<% else %>
+		You <%= @input[0] %> the  <%= @item.name %> and put it in your backpack.
+		<% end %>
+	<% elsif (@input.include?("move") || @input.include?("go") ||@input.include?("walk")) %>
+		<% if @old_room.id != @player.room_id %>
+			You go <%= @input[1] %>.
+		<% else %>
+			I don't understand where you're trying to go.
+		<% end %>
+<% elsif @@commands.include?(@input[0]) == false %>
+ Do what now?
 <% end %>
 
 
@@ -16,11 +28,23 @@
 <p><%= @room.description %></p>
 <% end %>
 
-
-
 <% if @room.monsters.any? %>
 	<% @room.monsters.each do |monster| %>
-	There seems to be something in here. It is <%= monster.description %>.
+		<% if monster.killed_by_player? == false %>
+		<br>
+		There seems to be something in here. It is <%= monster.description %>
+		<br>
+		<% end %>
+	<% end %>
+<% end %>
+
+<% if @room.items.any? %>
+	<% @room.items.each do |item| %>
+		<% if item.in_backpack? == false %>
+		<br>
+		You notice a <%= item.name %> laying there, ripe for the taking.
+		<br>
+		<% end %>
 	<% end %>
 <% end %>
 

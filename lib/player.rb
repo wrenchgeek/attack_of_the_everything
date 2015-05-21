@@ -2,7 +2,6 @@ class Player < ActiveRecord::Base
   belongs_to(:room)
 
   def attack(monster, item)
-    monster_encountered = Monster.where(description: monster, room_id: self.room_id).first
     if item.in_backpack? == true
       new_monster_hp = monster.hp - item.attack_damage
       monster.update(hp: new_monster_hp)
