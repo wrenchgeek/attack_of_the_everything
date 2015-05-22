@@ -5,7 +5,44 @@ require('./lib/player.rb')
 
 Player.create(room_id: nil, hp: 100)
 
-# was going to be the monster loot -- if it worked
+###############
+# AT A GLANCE #
+###############
+#
+# TOTALS
+# 26 rooms
+# 17 zombies
+# 7 weapons
+# 7 health items
+#
+# room 1 -- weapon NERF GUN -- zombie
+# room 2 -- weapon KATANA -- zombie
+# room 3 -- health SPRITE -- zombie
+# room 4
+# room 5 -- zombie
+# room 6 -- zombie
+# room 7
+# room 8 -- zombie
+# room 9 -- zombie
+# room 10 -- health CAN OF SODA
+# room 11 -- zombie BOSS
+# room 12 -- weapon CHAINSAW
+# room 13 -- health ROAST BEEF SANDWICH -- zombie
+# room 14 -- health COFFEE
+# room 15 -- weapon STAPLER -- zombie
+# room 16 -- weapon FIRE EXTINGUISHER -- zombie
+# room 17 -- health CAPRI SUN
+# room 18 -- zombie
+# room 19 -- zombie
+# room 20 -- health APPLE
+# room 21 -- health WHISKEY -- zombie
+# room 22 -- weapon CHEF KNIFE -- zombie
+# room 23
+# room 24 -- zombie
+# room 25 -- weapon BASEBALL BAT -- zombie
+# room 26
+
+# monster loot -- not sure if working
 Item.create(:name => "Epicodus T-Shirt, Size: L", :attack_damage => 0, :hp_modifier => 1, :in_backpack? =>  false, :room_id =>  nil)
 Item.create(:name => "Actual Ninja Stars", :attack_damage => 20, :hp_modifier=> 0, :in_backpack? => false, :room_id => nil)
 Item.create(:name => "Canned Tuna, 4oz (3-pack)", :attack_damage => 0, :hp_modifier => 30, :in_backpack? => false, :room_id => nil)
@@ -26,7 +63,7 @@ Item.create(:name => "Vintage Nerf Gun, circa 1986", :attack_damage => 100, :hp_
 Item.create(:name => "A Baby Seal", :attack_damage => 5, :hp_modifier => 1, :in_backpack? => false, :room_id => nil)
 
 Item.create(:name => "8oz Cup of Coffee (Americano)'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 14)
-Item.create(:name => "12oz Can of 'Mountain Dew'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 3)
+Item.create(:name => "12oz Can of 'Sprite'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 3)
 Item.create(:name => "Capri Sun, 8oz 'Pacific Cooler'", :attack_damage => 2, :hp_modifier => 10, :in_backpack? => false, :room_id => 17)
 Item.create(:name => "Chef Knife", :attack_damage => 15, :hp_modifier => 0, :in_backpack? => false, :room_id => 22)
 
@@ -64,7 +101,6 @@ Monster.create(:description => "Zombie in Samurai Garb (quite scary actually)", 
 Monster.create(:description => "Forever Alone Zombie", :hp => 40, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 3)
 Monster.create(:description => "Zombie Steve 6", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 5)
 Monster.create(:description => "What's 'er Butt's Zombie", :hp => 40, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 6)
-Monster.create(:description => "Zombie Christopher Walken (aka 'The Walken Dead')", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 8)
 Monster.create(:description => "Willem Dafoe, as himself", :hp => 40, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 8)
 Monster.create(:description => "Zombie Jesus", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 9)
 Monster.create(:description => "Zombie Steve 5", :hp => 20, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 15)
@@ -72,7 +108,7 @@ Monster.create(:description => "Zombie Steve 7", :hp => 40, :ap => 10, :killed_b
 Monster.create(:description => "Your Boss, not sure if zombie or not -- kill him/her anyway!", :hp => 150, :ap => 20, :killed_by_player => false, :attack_counter => 0, :room_id => 11)
 Monster.create(:description => "A Zombie Called 'IT'", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 16)
 Monster.create(:description => "The Zombie formerly known as Prince", :hp => 40, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 18)
-Monster.create(:description => "Zombie Steve 8", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 19)
+Monster.create(:description => "Zombie Christopher Walken (aka 'The Walken Dead')", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 19)
 Monster.create(:description => "Zombie Steve Infinity", :hp => 100, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 21)
 Monster.create(:description => "Sir Zombie Not Appearing in this Film", :hp => 40, :ap => 10, :killed_by_player => false, :attack_counter => 0, :room_id => 22)
 Monster.create(:description => "Zombie Vampire", :hp => 100, :ap => 5, :killed_by_player => false, :attack_counter => 0, :room_id => 24)
