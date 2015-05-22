@@ -52,19 +52,11 @@ patch('/:room_id') do
 
 	##IF INPUT == ATTACK
 
-if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
+	if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
 		with_index = @input.index("with")
 		if with_index != nil
 			monster_name = @input[1..(with_index-1)].join(" ")
 			@item_name = @input[(with_index + 1)..@input.length].join(" ")
-			# @compare_names = []
-			# Item.all.each do |item|
-			# 	item_name = item.name.downcase
-			# 	if item_name == @item_name
-			# 		@compare_names.push item.name
-			# 	end
-			# end
-			# @item_name = @compare_names.first
 			if Item.where(name: @item_name).first != nil
 			@item = Item.where(name: @item_name).first
 			else
@@ -86,9 +78,9 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 				end
 			end
 		end
-		if @item != nil
+		if (@item != nil) && (@item.in_backpack? == true)
 			@user_is_dumb = false
-		partial_recognition_array = []
+			partial_recognition_array = []
 			if Monster.where(description: monster_name).first == nil
 				Monster.all.each do |monster|
 					partial_check_array = []
@@ -106,7 +98,7 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 				end
 			else
 			@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
-		end
+			end
 
 
 		@player.attack(@monster, @item)
