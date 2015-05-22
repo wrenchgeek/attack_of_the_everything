@@ -58,6 +58,7 @@ id  | x_coordinate | y_coordinate | north | south | east  | west  |  description
 <h2>How to Play:</h2>
 1. Follow along with the story. There will be zombies. There will be things you can pick up.
 2. Type what you want to do into the text input area using simple English syntax.
+
 *Note: item and monster names/descriptions are case sensitive!*
 
 For example:
