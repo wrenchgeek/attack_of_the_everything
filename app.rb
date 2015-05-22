@@ -127,7 +127,7 @@ if @does_not_compute == false && @monster.room_id == @player.room_id
 			Item.all.each do |item|
 				partial_check_array = []
 				@input.each do |word|
-					if item.name.include?(word)
+					if item.name.include?(word) && item.room_id == @player.room_id
 						partial_check_array.push(word)
 					end
 				end
@@ -140,7 +140,7 @@ if @does_not_compute == false && @monster.room_id == @player.room_id
 				end
 			end
 		else
-					@item = (Item.where(name: @input[1..@input.length].join(" ")).first)
+					@item = (Item.where(name: @input[1..@input.length].join(" "), room_id: @player.room_id).first)
 		end
 			if @does_not_compute == false
 			@player.take(@item)
@@ -161,7 +161,7 @@ elsif (@input.include?("use")) || @input.include?("eat") || @input.include?("dri
 		Item.all.each do |item|
 			partial_check_array = []
 			@input.each do |word|
-				if item.name.include?(word)
+				if item.name.include?(word) && item.in_backpack?
 					partial_check_array.push(word)
 				end
 			end
@@ -174,7 +174,7 @@ elsif (@input.include?("use")) || @input.include?("eat") || @input.include?("dri
 			end
 		end
 	else
-				@item = (Item.where(name: @input[1..@input.length].join(" ")).first)
+				@item = (Item.where(name: @input[1..@input.length].join(" "), in_backpack: true).first)
 	end
 		if @does_not_compute == false
 		@player.use(@item)

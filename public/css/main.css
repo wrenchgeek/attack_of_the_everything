@@ -10,3 +10,17 @@ html, body {
 input {
   font-family: 'Fixedsys500c', sans-serif;
 }
+
+.page-header {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+#main_header {
+  font-size: 30px;
+}
+#action {
+  width: 250px;
+  height: 35px;
+}
