@@ -6,6 +6,8 @@ Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
 @@verbs = ["assault", "assail", "attack", "beset", "bedevil", "mildly irritate", "hit", "concuss", "attempt to murder", "batter", "pummel"]
 
+@@consume = ["eat", "devour", "chug", "crush", "gobble", "slurp", "inhale", "slam", "nibble", "sample"]
+
 get('/') do
 
 	##sets up starting level
@@ -52,27 +54,19 @@ patch('/:room_id') do
 
 	##IF INPUT == ATTACK
 
-if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
+	if (@input.include?("attack") || @input.include?("fight") || @input.include?("kill") || @input.include?("hit"))
 		with_index = @input.index("with")
 		if with_index != nil
 			monster_name = @input[1..(with_index-1)].join(" ")
 			@item_name = @input[(with_index + 1)..@input.length].join(" ")
-			# @compare_names = []
-			# Item.all.each do |item|
-			# 	item_name = item.name.downcase
-			# 	if item_name == @item_name
-			# 		@compare_names.push item.name
-			# 	end
-			# end
-			# @item_name = @compare_names.first
-			if Item.where(name: @item_name).first != nil
-			@item = Item.where(name: @item_name).first
+			if Item.where(name: @item_name, room_id: nil).first != nil
+			@item = Item.where(name: @item_name, room_id: nil).first
 			else
 				partial_recognition_array = []
 				Item.all.each do |item|
 					partial_check_array = []
 					@input.each do |word|
-						if item.name.include?(word)
+						if item.name.include?(word) && item.room_id == nil
 							partial_check_array.push(word)
 						end
 					end
@@ -86,34 +80,36 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 				end
 			end
 		end
-		if @item != nil
+		if (@item != nil) && (@item.in_backpack? == true) && (@item.room_id == nil)
 			@user_is_dumb = false
-		partial_recognition_array = []
-			if Monster.where(description: monster_name).first == nil
+			partial_recognition_array = []
+			if Monster.where(description: monster_name, room_id: @player.room_id).first == nil
 				Monster.all.each do |monster|
 					partial_check_array = []
 					@input.each do |word|
-						if monster.description.include?(word)
+						if monster.description.include?(word) && monster.room_id == @player.room_id
 							partial_check_array.push(word)
 						end
 					end
 					if partial_check_array.length >= 2
 							partial_recognition_array.push(monster)
 							@monster = partial_recognition_array.first
+							@does_not_compute = false
 					elsif partial_recognition_array.length < 2
 						@does_not_compute = true
 					end
 				end
 			else
 			@monster = Monster.where(description: monster_name, room_id: @player.room_id).first
-		end
+			end
 
-
+if @does_not_compute == false && @monster.room_id == @player.room_id
 		@player.attack(@monster, @item)
 		if @monster.hp <= 0
 			@monster.killed_by_player = true
 		else @monster.attack(@player)
 		end
+	end
 	else @user_is_dumb = true
 	end
 
@@ -146,7 +142,9 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 		else
 					@item = (Item.where(name: @input[1..@input.length].join(" ")).first)
 		end
+			if @does_not_compute == false
 			@player.take(@item)
+		end
 
 	##MOVE
 
@@ -156,6 +154,33 @@ if (@input.include?("attack") || @input.include?("fight") || @input.include?("ki
 	##UNRECOGNIZED INPUT
 elsif @input.include?("inventory") || @input.eql?(["i"])
 	@inventory = Item.where(in_backpack?: true)
+
+elsif (@input.include?("use")) || @input.include?("eat") || @input.include?("drink")
+	if Item.where(name: @input[1..@input.length].join(" ")).first == nil
+		partial_recognition_array = []
+		Item.all.each do |item|
+			partial_check_array = []
+			@input.each do |word|
+				if item.name.include?(word)
+					partial_check_array.push(word)
+				end
+			end
+			if partial_check_array.length >= 1
+					partial_recognition_array.push(item)
+					@item = partial_recognition_array.first
+					@does_not_compute = false
+			elsif partial_recognition_array.length == 0
+				@does_not_compute = true
+			end
+		end
+	else
+				@item = (Item.where(name: @input[1..@input.length].join(" ")).first)
+	end
+		if @does_not_compute == false
+		@player.use(@item)
+		@item.update(in_backpack?: false)
+	end
+
 
 else "Do what now?"
 	end

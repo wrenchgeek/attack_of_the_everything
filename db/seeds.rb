@@ -3,7 +3,7 @@ require('./lib/monster.rb')
 require('./lib/room.rb')
 require('./lib/player.rb')
 
-Player.create(room_id: nil, hp: 100)
+Player.create(room_id: nil, hp: 200)
 
 ###############
 # AT A GLANCE #

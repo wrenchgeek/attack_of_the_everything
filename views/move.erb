@@ -3,11 +3,13 @@
 
 <% if (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
 
-
-<% if (@user_is_dumb == true) %>
+<%	if (@does_not_compute == true) && @user_is_dumb == true %>
+	I appreciate your zeal for violence, but I don't even understand what you're trying to attack.
+	<br>
+<% elsif (@user_is_dumb == true) && @does_not_compute == false %>
 	Attack it with what? Try attacking with a specific object.
 	<br>
-	<% elsif (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) %>
+	<% elsif (@input.include?("attack")|| @input.include?("fight") || @input.include?("kill") || @input.include?("hit")) && @user_is_dumb == false && @does_not_compute == false %>
 
 	<% if @monster.killed_by_player? == false %>
 	You <%= @@verbs[rand(0..10)] %> the <%= @monster.description %> with the <%= @item.name %>. Its HP is now <%= @monster.hp %>.
@@ -16,6 +18,9 @@
 		The <%= @monster.description %> lays at your feet, dead as a doornail.
 		<br>
 	<% end %>
+<% else %>
+Do what now?
+<br>
 	<% end %>
 <% elsif (@input.include?("look")) %>
 	<%= @room.description %>
@@ -34,6 +39,12 @@
 		<% else %>
 			You immediately walk into a wall, temporarily knocking yourself unconscious. You wake up with a nasty headache, but happy to have proved once and for all that you are not a ghost.
 			<br>
+		<% end %>
+<% elsif (@input.include?("use")) || @input.include?("eat") || @input.include?("drink") %>
+	<% if @does_not_compute == false %>
+		You <%= @@consume[rand 0..10] %> the <%= @item.name %>. You feel refreshed.
+	<% else %>
+		I know you're hungry, but you can't just type in any old nonsense and expect it to appear in your stomach.
 		<% end %>
 <% elsif @@commands.include?(@input[0]) == false %>
  Do what now?
