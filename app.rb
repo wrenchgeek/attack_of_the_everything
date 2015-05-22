@@ -144,6 +144,7 @@ if @does_not_compute == false && @monster.room_id == @player.room_id
 		end
 			if @does_not_compute == false
 			@player.take(@item)
+			@item.update(room_id: nil)
 		end
 
 	##MOVE
