@@ -8,7 +8,40 @@ Completed as a group assignment using Ruby, Sinatra, and ActiveRecord.
 <h2>Description:</h2>
 An awesomely retro, loosely Zork-inspired text-based adventure.
 
-**WARNING:** a really annoying MIDI song autoplays at game start!
+
+<h2>Setup Instructions:</h2>
+  Runs under Ruby v2 on OS X. You'll need to run postgres as following:
+
+    $ postgres
+
+  Leave this running. Now create the database as follows:
+
+    $ rake db:setup
+
+  Run the app to start your adventure!:
+
+    $ ruby app.rb
+
+  *WARNING: a really annoying MIDI song autoplays at game start!*
+
+    
+<h2>How to Play:</h2>
+1. Follow along with the story. There will be zombies. There will be things you can pick up.
+2. Type what you want to do into the text input area using simple English syntax.
+
+*Note: item and monster names/descriptions are case sensitive!*
+
+  For example:
+
+    go west
+
+  or
+
+    pick up Cup of Coffee
+
+  or
+
+    attack Zombie Jesus with Baseball Bat
 
 
 <h2>To illustrate the table relationships:</h2>
@@ -39,39 +72,6 @@ id  | x_coordinate | y_coordinate | north | south | east  | west  |  description
 --- | ------------ | ------------ | ----- | ----- | ----- | ------| -------------  |
 1  |  1  |  5  |  false  |  true  |  false  |  false  |  Steve's Office  |
 2  |  2  |  4  |  false  |  true  |  false  |  false  |  Break Room  |
-
-
-<h2>Setup Instructions:</h2>
-  Runs under Ruby v2 on OS X. You'll need to run postgres as following:
-
-    $ postgres
-
-  Leave this running. Now create the database as follows:
-
-    $ rake db:setup
-
-  Run the app to start your adventure!:
-
-    $ ruby app.rb
-
-
-<h2>How to Play:</h2>
-1. Follow along with the story. There will be zombies. There will be things you can pick up.
-2. Type what you want to do into the text input area using simple English syntax.
-
-*Note: item and monster names/descriptions are case sensitive!*
-
-For example:
-
-    go west
-
-  or
-
-    pick up Cup of Coffee
-
-  or
-
-    attack Zombie Jesus with Baseball Bat
 
 
 <h2>Known Bugs</h2>
