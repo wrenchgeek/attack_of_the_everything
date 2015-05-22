@@ -78,7 +78,7 @@ patch('/:room_id') do
 				end
 			end
 		end
-		if (@item != nil) && (@item.in_backpack? == true)
+		if (@item != nil) && (@item.in_backpack? == true) && (@item.room_id == nil)
 			@user_is_dumb = false
 			partial_recognition_array = []
 			if Monster.where(description: monster_name).first == nil
