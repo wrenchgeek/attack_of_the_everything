@@ -29,7 +29,7 @@ id |      name           | in_backpack? | attack_damage | hp_modifier | room_id
 **monsters:**
 
 id  |  description   |  hp  |  ap  |  room_id  |  killed_by_player  |
---------------------|------|------|-----------|-----------------|
+---|---------------|------|------|-----------|-----------------|
 1  | Zombie Steve 5 |  40  |  10  |  7        |  false          |
 2  | William Zabka  |  50  |  10  |  20       |  false          |
 
